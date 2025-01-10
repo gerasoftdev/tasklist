@@ -1,0 +1,8 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+catalog:
+  "@types/eslint": ^8.38.0
+
+  "@types/node": ^20.14.13
