@@ -1,0 +1,20 @@
+{
+  "name": "@repo/eslint-config",
+  "license": "MIT",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "clean:deep": "pnpm run clean:deps",
+    "clean:deps": "rm -rf node_modules",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --cache --fix"
+  },
+  "devDependencies": {
+    "@types/eslint": "catalog:",
+    "@vercel/style-guide": "^5.2.0",
+    "eslint-config-turbo": "2.0.10",
+    "eslint-plugin-jsonc": "2.16.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-unused-imports": "^3.2.0"
+  }
+}
