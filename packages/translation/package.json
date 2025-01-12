@@ -1,0 +1,10 @@
+{
+  "name": "@repo/translation",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --cache --fix"
+  }
+}
