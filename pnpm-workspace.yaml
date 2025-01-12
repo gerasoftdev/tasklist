@@ -17,3 +17,15 @@ catalog:
 
   vite: ^5.4.8
   "vite-tsconfig-paths": "^5.0.1"
+
+  react: ^18.3.0
+  "@types/react": ^18.3.0
+  react-dom: ^18.3.0
+  "@types/react-dom": ^18.3.0
+
+  "clsx": "^2.1.1"
+  "autoprefixer": "10.4.20"
+  "postcss": "8.4.47"
+  "postcss-import": "16.1.0"
+  "tailwindcss": "3.4.13"
+  
