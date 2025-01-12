@@ -8,3 +8,12 @@ catalog:
   "@types/node": ^20.14.13
 
   tsup: 8.2.0
+
+  "@testing-library/jest-dom": "^6.5.0"
+  "@testing-library/react": "^16.0.1"
+  "vitest": "2.1.2"
+  "jsdom": "25.0.1"
+  "@vitest/coverage-v8": "2.1.2"
+
+  vite: ^5.4.8
+  "vite-tsconfig-paths": "^5.0.1"
