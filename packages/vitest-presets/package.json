@@ -1,0 +1,20 @@
+{
+  "name": "@repo/vitest-presets",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "files": [
+    "browser/index.mjs"
+  ],
+  "scripts": {
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --cache --fix"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "catalog:",
+    "jsdom": "catalog:",
+    "vite-tsconfig-paths": "catalog:",
+    "vitest": "catalog:"
+  }
+}
