@@ -6,3 +6,5 @@ catalog:
   "@types/eslint": ^8.38.0
 
   "@types/node": ^20.14.13
+
+  tsup: 8.2.0

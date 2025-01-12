@@ -2,6 +2,11 @@
   "$schema": "https://turbo.build/schema.json",
   "globalEnv": ["ENV", "NODE_ENV"],
   "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env", ".env*"],
+      "outputs": ["build/**", "dist/**"]
+    },
     "clean": {
       "cache": false
     },
@@ -10,6 +15,11 @@
     },
     "clean:deps": {
       "cache": false
+    },
+    "dev": {
+      "cache": false,
+      "dependsOn": ["^build"],
+      "persistent": true
     },
     "lint": {},
     "lint:fix": {},
