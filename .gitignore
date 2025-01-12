@@ -16,3 +16,5 @@ public/dist
 coverage
 .terragrunt-cache
 .terraform.lock.hcl
+
+storybook-static
