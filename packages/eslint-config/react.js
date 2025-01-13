@@ -11,6 +11,7 @@ module.exports = {
     'plugin:tailwindcss/recommended',
     './index',
     'plugin:vitest/recommended',
+    'plugin:storybook/recommended',
   ],
   globals: {
     React: true,

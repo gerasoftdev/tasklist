@@ -17,6 +17,7 @@ catalog:
 
   vite: ^5.4.8
   "vite-tsconfig-paths": "^5.0.1"
+  "@vitejs/plugin-react": "^4.2.1"
 
   react: ^18.3.0
   "@types/react": ^18.3.0
@@ -28,4 +29,13 @@ catalog:
   "postcss": "8.4.47"
   "postcss-import": "16.1.0"
   "tailwindcss": "3.4.13"
-  
+
+  "@chromatic-com/storybook": "^3.2.3"
+  "storybook": "^8.4.7"
+  "@storybook/addon-essentials": "^8.4.7"
+  "@storybook/addon-interactions": "^8.4.7"
+  "@storybook/addon-toolbars": "^8.4.7"
+  "@storybook/blocks": "^8.4.7"
+  "@storybook/react": "^8.4.7"
+  "@storybook/react-vite": "^8.4.7"
+  "@storybook/test": "^8.4.7"
