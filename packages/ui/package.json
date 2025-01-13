@@ -9,6 +9,10 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js",
       "types": "./src/index.tsx"
+    },
+    "./css/*.css": {
+      "import": "./src/css/*.css",
+      "require": "./src/css/*.css"
     }
   },
   "scripts": {
@@ -19,6 +23,7 @@
     "dev": "tsup --watch",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
+    "storybook": "storybook dev -p 6006",
     "test": "vitest run --coverage",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
@@ -28,15 +33,27 @@
     "react-dom": "catalog:"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "catalog:",
     "@repo/eslint-config": "workspace:*",
     "@repo/tsup-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@repo/vitest-presets": "workspace:*",
+    "@storybook/addon-essentials": "catalog:",
+    "@storybook/addon-interactions": "catalog:",
+    "@storybook/addon-toolbars": "catalog:",
+    "@storybook/blocks": "catalog:",
+    "@storybook/react": "catalog:",
+    "@storybook/react-vite": "catalog:",
+    "@storybook/test": "catalog:",
     "@testing-library/react": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "storybook": "catalog:",
     "tailwindcss": "catalog:",
     "tsup": "catalog:",
+    "vite": "catalog:",
+    "vite-tsconfig-paths": "catalog:",
     "vitest": "catalog:"
   },
   "peerDependencies": {
