@@ -1,7 +1,7 @@
 import type { Options } from 'tsup';
 
 export const base: Options = {
-  entry: [`./src/**/*.(ts|tsx)`, `!./src/**/*.test.(ts|tsx)`],
+  entry: [`./src/**/*.(ts|tsx)`, `!./src/**/*.(test|stories).(ts|tsx)`],
   format: ['cjs', 'esm'],
   dts: false,
   treeshake: true,
