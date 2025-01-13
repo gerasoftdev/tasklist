@@ -1,6 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalEnv": ["ENV", "NODE_ENV"],
+  "ui": "tui",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -23,6 +24,11 @@
     },
     "lint": {},
     "lint:fix": {},
+    "storybook": {
+      "cache": false,
+      "dependsOn": ["^build"],
+      "persistent": true
+    },
     "typecheck": {
       "dependsOn": ["^typecheck"]
     }

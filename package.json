@@ -11,6 +11,7 @@
     "lint": "eslint . --cache && turbo run lint",
     "lint:fix": "eslint . --cache --fix && turbo run lint:fix",
     "prepare": "husky",
+    "storybook": "turbo run storybook",
     "test": "vitest run",
     "typecheck": "turbo run typecheck"
   },
