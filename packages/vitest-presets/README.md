@@ -4,7 +4,7 @@
 
 This package contains reusable vitest presets, and initial setups for each environment.
 
-## Usage
+## Usage
 
 Extend `(vitest|vite).config.mjs` with the appropriate preset as either just exporting it:
 

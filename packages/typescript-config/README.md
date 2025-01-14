@@ -4,7 +4,7 @@
 
 This package contains reusable typescript configs for each environment.
 
-## Usage
+## Usage
 
 Extend `tsconfig.json` with the appropriate config as:
 

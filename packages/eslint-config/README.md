@@ -4,7 +4,7 @@
 
 This package contains reusable ESLint configs for each environment.
 
-## Usage
+## Usage
 
 Extend `.eslintrc.cjs` with the appropriate config as:
 
