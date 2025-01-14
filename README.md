@@ -1,6 +1,6 @@
 # Tasklist App
 
-## Intro
+## Intro
 
 This is a TypeScript monorepo containing the packages, and apps required for the Tasklist app to work.
 
@@ -29,7 +29,7 @@ This is a TypeScript monorepo containing the packages, and apps required for the
 - [ui](./packages/ui/README.md) - design library (components, themes, utils)
 - [vitest-presets](./packages/vitest-presets/README.md) - vitest presets
 
-## Commands
+## Commands
 
 - `clean`: clean build output of every package
 - `clean:deps`: clean `node_modules` of root, and of every package

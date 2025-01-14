@@ -4,7 +4,7 @@
 
 This package contains reusable tsup configs for each environment.
 
-## Usage
+## Usage
 
 Extend `tsup.config.ts` with the appropriate config as:
 

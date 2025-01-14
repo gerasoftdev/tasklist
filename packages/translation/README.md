@@ -22,6 +22,6 @@ This package contains translations in `[locale]/[namespace].json` format to be u
 }
 ```
 
-## Guidelines
+## Guidelines
 
 - make sure that the translations in every locale are synced, so all namespaces in every language have the same keys
