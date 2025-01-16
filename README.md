@@ -2,7 +2,7 @@
 
 ## Intro
 
-This is a TypeScript monorepo containing the packages, and apps required for the Tasklist app to work.
+This is a TypeScript monorepo containing the packages, and apps required for the Tasklist app to work based on the blog series _From Idea to App_: **https://gerasoft.dev/blog/idea-to-app**
 
 ## Stack
 
