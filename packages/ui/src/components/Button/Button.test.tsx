@@ -1,18 +1,29 @@
 import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { Button } from '@/components/Button';
-import { Text } from '@/components/typography/Text';
 
 const label = 'Label';
 
-describe('Button', () => {
-  it('Shows children', () => {
+describe('Button Components', () => {
+  it('Renders Button with label', () => {
+    const screen = render(<Button label={label} />);
+    expect(screen.getByText(label)).toBeInTheDocument();
+  });
+
+  it('Renders custom children', () => {
     const screen = render(
       <Button>
-        <Text>{label}</Text>
+        <span>Custom</span>
       </Button>,
     );
+    expect(screen.getByText('Custom')).toBeInTheDocument();
+  });
 
-    expect(screen.getByText(label)).toBeInTheDocument();
+  it('Renders Button with icon elements', () => {
+    const screen = render(
+      <Button IconLeft={<span>Left</span>} IconRight={<span>Right</span>} />,
+    );
+    expect(screen.getByText('Left')).toBeInTheDocument();
+    expect(screen.getByText('Right')).toBeInTheDocument();
   });
 });

@@ -1,16 +1,57 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { IoAdd, IoRemove } from 'react-icons/io5';
+import type { ComponentProps } from 'react';
 import { Button } from '@/components/Button';
-import { Text } from '@/components/typography/Text';
+import { size } from '@/theme';
 
-const meta: Meta<typeof Button> = {
+type Args = ComponentProps<typeof Button> & {
+  showLeftIcon: boolean;
+  showRightIcon: boolean;
+};
+
+const meta: Meta<Args> = {
   title: 'Button',
   component: Button,
-  args: {
-    children: <Text>Example button</Text>,
+  argTypes: {
+    $variant: {
+      control: { type: 'radio' },
+      options: ['primary', 'secondary', 'ghost', 'outline'],
+    },
+    $size: {
+      control: { type: 'radio' },
+      options: ['s', 'm', 'l'],
+    },
+    showRightIcon: {
+      control: 'boolean',
+      defaultValue: true,
+    },
+    showLeftIcon: {
+      control: 'boolean',
+      defaultValue: true,
+    },
+    disabled: {
+      control: 'boolean',
+      defaultValue: false,
+    },
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<Args>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    $variant: 'primary',
+    $size: 'l',
+    label: 'Click me',
+    showLeftIcon: true,
+    showRightIcon: true,
+  },
+  render: (args) => (
+    <Button
+      {...args}
+      IconLeft={args.showLeftIcon ? <IoAdd size={size.xs} /> : undefined}
+      IconRight={args.showRightIcon ? <IoRemove size={size.xs} /> : undefined}
+    />
+  ),
+};
