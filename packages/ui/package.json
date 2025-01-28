@@ -30,7 +30,8 @@
   "dependencies": {
     "clsx": "catalog:",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "react-icons": "catalog:"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "catalog:",
