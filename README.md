@@ -45,6 +45,10 @@ This is a TypeScript monorepo containing the packages, and apps required for the
 
 Many of the above commands are available in each individual package, and they can be ran independently. At root level, we run these commands using `turborepo`, which runs these commands at once for every package.
 
+## Wiki
+
+Documentation of the project can be found in the [Wiki Page](https://doc.clickup.com/9012226562/d/8cjqag2-3892/tasklist-wiki).
+
 ## Notes
 
 ### Mixed absolute/relative paths in imports
