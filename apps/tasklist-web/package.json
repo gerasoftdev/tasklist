@@ -22,12 +22,14 @@
     "react-dom": "catalog:",
     "react-hook-form": "catalog:",
     "react-i18next": "catalog:",
+    "uuid": "catalog:",
     "wouter": "catalog:",
     "zustand": "catalog:"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "catalog:",
     "@repo/eslint-config": "workspace:*",
+    "@repo/types": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@repo/ui": "workspace:*",
     "@repo/vitest-presets": "workspace:*",
@@ -42,6 +44,7 @@
     "@testing-library/react": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "@types/uuid": "catalog:",
     "@vitejs/plugin-react": "catalog:",
     "autoprefixer": "catalog:",
     "postcss": "catalog:",
