@@ -1,5 +1,9 @@
 {
   "welcome": "Welcome!",
   "submit": "Submit",
-  "discard": "Discard"
+  "discard": "Discard",
+  "save": "Save",
+  "name": "Name",
+  "delete": "Delete",
+  "cancel": "Cancel"
 }
