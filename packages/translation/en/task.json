@@ -3,5 +3,7 @@
   "tasks": "Tasks",
   "newTask": "Add new task",
   "taskName": "Task name",
-  "editTask": "Edit task"
+  "editTask": "Edit task",
+  "deleteTask": "Delete task",
+  "deleteTaskDescription": "Are you sure you want to delete {{ taskName }}? This action is irreversible."
 }
