@@ -114,6 +114,12 @@ catalogs:
     wouter:
       specifier: ^3.3.1
       version: 3.3.5
+    zod:
+      specifier: ^3.24.1
+      version: 3.24.1
+    zod-i18n-map:
+      specifier: ^2.27.0
+      version: 2.27.0
     zustand:
       specifier: ^4.5.4
       version: 4.5.6
@@ -194,6 +200,12 @@ importers:
       wouter:
         specifier: 'catalog:'
         version: 3.3.5(react@18.3.1)
+      zod:
+        specifier: 'catalog:'
+        version: 3.24.1
+      zod-i18n-map:
+        specifier: 'catalog:'
+        version: 2.27.0(i18next@23.16.8)(zod@3.24.1)
       zustand:
         specifier: 'catalog:'
         version: 4.5.6(@types/react@18.3.18)(react@18.3.1)
@@ -325,6 +337,10 @@ importers:
         version: 8.2.0(jiti@1.21.7)(postcss@8.4.47)(typescript@5.7.3)(yaml@2.7.0)
 
   packages/types:
+    dependencies:
+      '@repo/validation-schema':
+        specifier: workspace:*
+        version: link:../validation-schema
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -423,6 +439,31 @@ importers:
       vite-tsconfig-paths:
         specifier: 'catalog:'
         version: 5.1.4(typescript@5.7.3)(vite@5.4.11(@types/node@20.17.12))
+      vitest:
+        specifier: 'catalog:'
+        version: 2.1.2(@types/node@20.17.12)(jsdom@25.0.1)
+
+  packages/validation-schema:
+    dependencies:
+      zod:
+        specifier: 'catalog:'
+        version: 3.24.1
+    devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/tsup-config':
+        specifier: workspace:*
+        version: link:../tsup-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@repo/vitest-presets':
+        specifier: workspace:*
+        version: link:../vitest-presets
+      tsup:
+        specifier: 'catalog:'
+        version: 8.2.0(jiti@1.21.7)(postcss@8.4.47)(typescript@5.7.3)(yaml@2.7.0)
       vitest:
         specifier: 'catalog:'
         version: 2.1.2(@types/node@20.17.12)(jsdom@25.0.1)
@@ -4044,6 +4085,15 @@ packages:
   yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+
+  zod-i18n-map@2.27.0:
+    resolution: {integrity: sha512-ORu9XpiVh3WDiEUs5Cr9siGgnpeODoBsTIgSD8sQCH9B//f9KowlzqHUEdPYb3vFonaSH8yPvPCOFM4niwp3Sg==}
+    peerDependencies:
+      i18next: '>=21.3.0'
+      zod: '>=3.17.0'
+
+  zod@3.24.1:
+    resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
 
   zustand@4.5.6:
     resolution: {integrity: sha512-ibr/n1hBzLLj5Y+yUcU7dYw8p6WnIVzdJbnX+1YpaScvZVF2ziugqHs+LAmHw4lWO9c/zRj+K1ncgWDQuthEdQ==}
@@ -7945,6 +7995,13 @@ snapshots:
   yaml@2.7.0: {}
 
   yocto-queue@0.1.0: {}
+
+  zod-i18n-map@2.27.0(i18next@23.16.8)(zod@3.24.1):
+    dependencies:
+      i18next: 23.16.8
+      zod: 3.24.1
+
+  zod@3.24.1: {}
 
   zustand@4.5.6(@types/react@18.3.18)(react@18.3.1):
     dependencies:

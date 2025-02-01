@@ -1,0 +1,30 @@
+{
+  "name": "@repo/validation-schema",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "tsup --clean",
+    "clean": "rm -rf dist",
+    "clean:deep": "pnpm run clean && pnpm run clean:deps",
+    "clean:deps": "rm -rf node_modules",
+    "dev": "tsup --watch",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --cache --fix",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tsup-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@repo/vitest-presets": "workspace:*",
+    "tsup": "catalog:",
+    "vitest": "catalog:"
+  }
+}

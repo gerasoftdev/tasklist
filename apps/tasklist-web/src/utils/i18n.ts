@@ -1,12 +1,16 @@
 import { use } from 'i18next';
+import { makeZodI18nMap } from 'zod-i18n-map';
+import { setErrorMap } from 'zod';
 import { initReactI18next } from 'react-i18next';
 import commonEn from '@repo/translation/en/common.json';
 import taskEn from '@repo/translation/en/task.json';
+import zodEn from 'zod-i18n-map/locales/en/zod.json';
 
 const resources = {
   en: {
     common: commonEn,
     task: taskEn,
+    zod: zodEn,
   },
 };
 
@@ -18,8 +22,12 @@ declare module 'i18next' {
   }
 }
 
-use(initReactI18next).init({
-  lng: 'en',
-  debug: false,
-  resources,
-});
+use(initReactI18next)
+  .init({
+    lng: 'en',
+    debug: false,
+    resources,
+  })
+  .then(() => {
+    setErrorMap(makeZodI18nMap({ ns: ['zod'] }));
+  });

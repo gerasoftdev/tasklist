@@ -1,5 +1,1 @@
-export type Task = {
-  _id: string;
-  name: string;
-  isCompleted: boolean;
-};
+export type { Task } from '@repo/validation-schema';
