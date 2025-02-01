@@ -4,11 +4,9 @@ import type { FC, HTMLAttributes, PropsWithChildren } from 'react';
 const mainStyles = clsx(
   'flex-col',
   'mx-auto',
-  'my-n',
   'w-11/12',
-  'py-xl',
-  'px-lg',
-  'max-w-screen-md',
+  'pt-lg',
+  'max-w-[500px]',
 );
 
 export const Main: FC<PropsWithChildren<HTMLAttributes<HTMLDivElement>>> = ({
