@@ -25,6 +25,8 @@
     "react-icons": "catalog:",
     "uuid": "catalog:",
     "wouter": "catalog:",
+    "zod": "catalog:",
+    "zod-i18n-map": "catalog:",
     "zustand": "catalog:"
   },
   "devDependencies": {
