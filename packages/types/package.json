@@ -1,0 +1,19 @@
+{
+  "name": "@repo/types",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "types": "./src/index.d.ts",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "clean:deep": "pnpm run clean && pnpm run clean:deps",
+    "clean:deps": "rm -rf node_modules",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --cache --fix",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*"
+  }
+}
