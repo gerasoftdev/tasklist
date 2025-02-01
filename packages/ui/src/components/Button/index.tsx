@@ -56,7 +56,7 @@ export const buttonSizeTextStyles = {
 export const buttonBaseStyles = clsx(
   'transition-colors',
   'cursor-pointer',
-  'disabled:opacity-70',
+  'disabled:opacity-50',
   'disabled:cursor-default',
   'items-center',
 );

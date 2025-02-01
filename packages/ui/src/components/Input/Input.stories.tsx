@@ -72,8 +72,16 @@ export const Default: Story = {
   render: (args) => (
     <Input
       {...args}
-      IconLeft={args.showLeftIcon ? <IoAdd size={size.xs} /> : undefined}
-      IconRight={args.showRightIcon ? <IoRemove size={size.xs} /> : undefined}
+      IconLeft={
+        args.showLeftIcon ? (
+          <IoAdd className="m-xs" size={size.xs} />
+        ) : undefined
+      }
+      IconRight={
+        args.showRightIcon ? (
+          <IoRemove className="m-xs" size={size.xs} />
+        ) : undefined
+      }
       error={args.showError ? args.error : undefined}
       label={args.showLabel ? args.label : undefined}
       note={args.showNote ? args.note : undefined}
