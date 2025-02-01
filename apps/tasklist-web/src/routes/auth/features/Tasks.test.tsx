@@ -38,6 +38,16 @@ describe('Tasks', () => {
     expect(name).toBeInTheDocument();
     expect(checkbox).not.toBeChecked();
   });
+  it(`Shows add task input`, async () => {
+    const screen = setup();
+    await waitFor(() => {
+      expect(screen.queryByTestId('spinner')).not.toBeInTheDocument();
+    });
+
+    expect(
+      screen.getByPlaceholderText(taskTranslation.newTask),
+    ).toBeInTheDocument();
+  });
   it(`Ticking the checkbox updates the task, marking it completed, unticking it marks it as uncompleted`, async () => {
     const screen = setup();
     const checkbox = screen.getByRole('checkbox', {

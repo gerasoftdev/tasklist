@@ -15,7 +15,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@hookform/resolvers": "catalog:",
     "@repo/translation": "workspace:*",
+    "@repo/validation-schema": "workspace:*",
     "clsx": "catalog:",
     "i18next": "catalog:",
     "react": "catalog:",

@@ -42,7 +42,6 @@ export const Task: FC<Props> = ({ task: { _id, name, isCompleted } }) => {
             isCompleted ? 'text-g500' : 'text-g900',
             isCompleted && 'line-through',
           )}
-          id={_id}
           to={ROUTES.TASKS({ taskId: _id })}
         >
           <BodyLarge>{name}</BodyLarge>
