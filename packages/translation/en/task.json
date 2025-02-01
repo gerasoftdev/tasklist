@@ -1,5 +1,7 @@
 {
   "completed": "Completed",
   "tasks": "Tasks",
-  "newTask": "Add new task"
+  "newTask": "Add new task",
+  "taskName": "Task name",
+  "editTask": "Edit task"
 }
