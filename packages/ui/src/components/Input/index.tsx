@@ -169,12 +169,10 @@ type InputVariantProps = {
 
 export const inputGroupVariantStyles = {
   underline: clsx(
-    'gap-xs',
     'items-center',
     'border-b',
     'border-o20',
     'cursor-text',
-    'py-xs',
     'focus-within:border-p500',
     'has-[input[aria-invalid="true"]]:border-red',
     'has-[input:disabled]:cursor-default',
@@ -186,8 +184,6 @@ export const inputGroupVariantStyles = {
     'outline',
     'outline-o20',
     'outline-1',
-    'px-sm',
-    'py-xs',
     'focus-within:outline-1',
     'focus-within:outline-p500',
     'has-[input[aria-invalid="true"]]:outline-red',
@@ -204,9 +200,10 @@ const inputSizeStyles = {
   l: clsx(textVariantStyles.bodyLarge),
 };
 
-const inputGroupSizeStyles = {
-  m: clsx('gap-xs'),
-  l: clsx('gap-sm'),
+const inputVariantStyles = {
+  underline: clsx('py-xs'),
+
+  outline: clsx('px-sm', 'py-xs'),
 };
 
 export const Input = forwardRef<
@@ -244,11 +241,7 @@ export const Input = forwardRef<
       >
         {(innerRef) => (
           <Row
-            className={clsx(
-              'items-center',
-              inputGroupVariantStyles[$variant],
-              inputGroupSizeStyles[$size],
-            )}
+            className={clsx('items-center', inputGroupVariantStyles[$variant])}
           >
             {before}
             <InputBase
@@ -257,7 +250,10 @@ export const Input = forwardRef<
               }
               aria-invalid={error ? 'true' : 'false'}
               aria-labelledby={label ? `${id}Label` : undefined}
-              className={inputSizeStyles[$size]}
+              className={clsx(
+                inputSizeStyles[$size],
+                inputVariantStyles[$variant],
+              )}
               id={id}
               ref={innerRef}
               {...props}
