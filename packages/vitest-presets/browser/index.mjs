@@ -14,12 +14,15 @@ export default defineProject({
       provider: 'v8',
       include: ['src/**/*.ts', 'src/**/*.tsx'],
       exclude: [
+        'src/__fixtures__',
+        'src/__mocks__',
         'src/types',
         'src/constants',
         'src/index.ts', // barrel files
         'src/index.tsx', // barrel files
         'src/**/*.test.ts',
         'src/**/*.test.tsx',
+        'src/**/*.stories.tsx',
       ],
       thresholds: {
         statements: 60,

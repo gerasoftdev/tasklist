@@ -60,12 +60,22 @@ const checkboxSize = {
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   (
-    { error, label, note, id, hideError = true, $size = 'm', testID, ...props },
+    {
+      error,
+      label,
+      note,
+      id,
+      hideError = true,
+      $size = 'm',
+      className = '',
+      testID,
+      ...props
+    },
     ref,
   ) => {
     return (
       <Col className={clsx((note || !hideError) && 'pb-[0.875rem]')}>
-        <label className={clsx(checkboxContainerLabelStyles)}>
+        <label className={clsx(checkboxContainerLabelStyles, className)}>
           <input
             aria-describedby={
               (error && `${id}Error`) || (note && `${id}Note`) || undefined
