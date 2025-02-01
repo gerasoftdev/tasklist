@@ -49,3 +49,6 @@ catalog:
   "@storybook/react": "^8.4.7"
   "@storybook/react-vite": "^8.4.7"
   "@storybook/test": "^8.4.7"
+
+  "uuid": "^10.0.0"
+  "@types/uuid": "^10.0.0"
