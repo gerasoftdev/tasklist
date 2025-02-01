@@ -7,6 +7,7 @@ export const mockTask: Task = {
   name: mockTaskName,
   isCompleted: false,
 };
+export const updatedTaskName = 'Edited Task';
 
 export const mockTask2Id = 'testTask2';
 export const mockTask2Name = 'Task 2';

@@ -1,4 +1,4 @@
-import { useMemo, type FC } from 'react';
+import { useMemo, useState, type FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { object } from 'zod';
 import type { TypeOf } from 'zod';
@@ -18,6 +18,7 @@ import { taskSchemaFields } from '@repo/validation-schema';
 import type { Task } from '@repo/types';
 import { useMockTaskApi } from '@/hooks/mockTaskApi';
 import { ROUTES } from '@/constants/routes';
+import { DeleteTaskModal } from '@/routes/auth/features/DeleteTaskModal';
 
 const formSchema = object({
   name: taskSchemaFields.name,
@@ -38,6 +39,8 @@ export const EditTaskModal: FC<EditTaskContentProps> = ({
 }) => {
   const { t } = useTranslation(['common', 'task']);
   const { updateTask } = useMockTaskApi();
+  const [_, setLocation] = useLocation();
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 
   const {
     register,
@@ -56,6 +59,18 @@ export const EditTaskModal: FC<EditTaskContentProps> = ({
     onSubmit();
   };
 
+  const handleDelete = () => {
+    setShowConfirmDelete(true);
+  };
+
+  const handleConfirmDelete = () => {
+    setLocation(ROUTES.TASKS());
+  };
+
+  const handleCancelDelete = () => {
+    setShowConfirmDelete(false);
+  };
+
   return (
     <Modal className="w-xxl" onClose={onCancel} title={t('task:editTask')}>
       <form
@@ -72,7 +87,7 @@ export const EditTaskModal: FC<EditTaskContentProps> = ({
           placeholder={t('task:taskName')}
         />
         <Row className="mt-auto gap-md">
-          <GhostButton className="mr-auto" type="button">
+          <GhostButton className="mr-auto" onClick={handleDelete} type="button">
             <BodyRegular $bold className="text-red">
               {t('common:delete')}
             </BodyRegular>
@@ -89,6 +104,13 @@ export const EditTaskModal: FC<EditTaskContentProps> = ({
           />
         </Row>
       </form>
+      {showConfirmDelete ? (
+        <DeleteTaskModal
+          onCancel={handleCancelDelete}
+          onSubmit={handleConfirmDelete}
+          task={task}
+        />
+      ) : null}
     </Modal>
   );
 };
