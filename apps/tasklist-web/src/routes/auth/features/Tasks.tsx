@@ -8,7 +8,7 @@ export const Tasks: FC = () => {
   const { tasks } = useMockTaskApi();
 
   return (
-    <Col className="px-sm">
+    <Col className="min-h-n flex-1 overflow-y-auto px-sm *:shrink-0">
       {tasks.map((task) => (
         <Task key={task._id} task={task} />
       ))}
