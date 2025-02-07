@@ -1,0 +1,38 @@
+{
+  "name": "@repo/graphql",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "tsup --clean",
+    "clean": "rm -rf dist",
+    "clean:deep": "pnpm run clean && pnpm run clean:deps",
+    "clean:deps": "rm -rf node_modules",
+    "dev": "tsup --watch",
+    "graphql-codegen": "graphql-codegen",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --cache --fix",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "graphql-tag": "catalog:"
+  },
+  "devDependencies": {
+    "@graphql-codegen/add": "catalog:",
+    "@graphql-codegen/cli": "catalog:",
+    "@graphql-codegen/import-types-preset": "catalog:",
+    "@graphql-codegen/typescript": "catalog:",
+    "@graphql-codegen/typescript-operations": "catalog:",
+    "@graphql-codegen/typescript-react-apollo": "catalog:",
+    "@graphql-codegen/typescript-resolvers": "catalog:",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tsup-config": "workspace:*",
+    "@repo/types": "workspace:^",
+    "@repo/typescript-config": "workspace:*",
+    "graphql": "catalog:",
+    "tsup": "catalog:"
+  }
+}
