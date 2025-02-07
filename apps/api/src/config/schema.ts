@@ -36,6 +36,7 @@ export const configSchema = object({
   )
     .optional()
     .default(defaultConfigValues.CORS_ALLOWLIST),
+  DB_CONNECTION_STRING: string(),
 });
 
 export type Config = zodInfer<typeof configSchema>;

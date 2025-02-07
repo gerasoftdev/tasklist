@@ -77,3 +77,4 @@ catalog:
   "@fastify/swagger": "9.4.2"
   "@fastify/swagger-ui": "5.2.1"
   "@fastify/under-pressure": "9.0.3"
+  "mongoose": "8.7.1"

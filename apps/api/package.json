@@ -24,6 +24,7 @@
     "@fastify/swagger": "catalog:",
     "@fastify/swagger-ui": "catalog:",
     "@fastify/under-pressure": "catalog:",
+    "@repo/mongodb-helpers": "workspace:*",
     "@repo/translation": "workspace:*",
     "close-with-grace": "catalog:",
     "fastify": "catalog:",

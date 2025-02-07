@@ -17,6 +17,14 @@ const start = async () => {
     console.timeEnd('Server started in');
   }
 
+  const { count, lastStarted } = await server.increaseCounter();
+  // eslint-disable-next-line -- temporary clg, will be removed
+  console.log(`Connected ${count} times.`);
+  // eslint-disable-next-line -- temporary clg, will be removed
+  console.log(
+    `Last connected at ${lastStarted ? lastStarted.toISOString() : 'never'}`,
+  );
+
   closeWithGrace({ delay: 500 }, async ({ signal, err }) => {
     if (err) {
       server.log.error(err, 'Unhandled error was caught, closing server');
