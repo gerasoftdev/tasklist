@@ -1,0 +1,49 @@
+{
+  "name": "api",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "tsup --clean",
+    "clean": "rm -rf dist",
+    "clean:deps": "rm -rf node_modules",
+    "dev": "tsup --watch --onSuccess \"node dist/index.js\"",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --cache --fix",
+    "start": "node dist/index.js",
+    "test": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@apollo/server": "catalog:",
+    "@as-integrations/fastify": "catalog:",
+    "@fastify/autoload": "catalog:",
+    "@fastify/compress": "catalog:",
+    "@fastify/cors": "catalog:",
+    "@fastify/error": "catalog:",
+    "@fastify/helmet": "catalog:",
+    "@fastify/rate-limit": "catalog:",
+    "@fastify/swagger": "catalog:",
+    "@fastify/swagger-ui": "catalog:",
+    "@fastify/under-pressure": "catalog:",
+    "@repo/translation": "workspace:*",
+    "close-with-grace": "catalog:",
+    "fastify": "catalog:",
+    "fastify-plugin": "catalog:",
+    "fastify-type-provider-zod": "catalog:",
+    "graphql": "catalog:",
+    "pino-pretty": "catalog:",
+    "uuid": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tsup-config": "workspace:*",
+    "@repo/types": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@repo/vitest-presets": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/uuid": "catalog:",
+    "dotenv": "catalog:",
+    "tsup": "catalog:",
+    "vitest": "catalog:"
+  }
+}

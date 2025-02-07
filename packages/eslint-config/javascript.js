@@ -17,7 +17,7 @@ module.exports = {
     node: true,
     es6: true,
   },
-  ignorePatterns: ['node_modules/', 'dist/', '.eslintcache'],
+  ignorePatterns: ['node_modules/', 'dist/', '.eslintcache', 'coverage'],
   rules: {
     'unicorn/filename-case': 'off',
     'import/no-default-export': 'off',

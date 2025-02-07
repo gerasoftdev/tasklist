@@ -56,3 +56,24 @@ catalog:
 
   "zod": "^3.24.1"
   "zod-i18n-map": "^2.27.0"
+
+  "@apollo/server": "4.11.3"
+  "@as-integrations/fastify": "2.1.1"
+  "graphql": "16.10.0"
+
+  "pino-pretty": "13.0.0"
+  "close-with-grace": "2.2.0"
+  "dotenv": "16.4.7"
+
+  "fastify": "5.2.1"
+  "fastify-plugin": "5.0.1"
+  "fastify-type-provider-zod": "4.0.2"
+  "@fastify/autoload": "6.1.0"
+  "@fastify/compress": "8.0.1"
+  "@fastify/cors": "10.0.2"
+  "@fastify/error": "4.0.0"
+  "@fastify/helmet": "13.0.1"
+  "@fastify/rate-limit": "10.2.2"
+  "@fastify/swagger": "9.4.2"
+  "@fastify/swagger-ui": "5.2.1"
+  "@fastify/under-pressure": "9.0.3"
