@@ -1,0 +1,36 @@
+{
+  "name": "@repo/mongodb-helpers",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "tsup --clean",
+    "clean": "rm -rf dist",
+    "dev": "tsup --watch",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --cache --fix",
+    "start": "node dist/index.js",
+    "test": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@repo/translation": "workspace:*",
+    "@repo/types": "workspace:*",
+    "mongoose": "catalog:",
+    "uuid": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tsup-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@repo/vitest-presets": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/uuid": "catalog:",
+    "tsup": "catalog:",
+    "vitest": "catalog:"
+  }
+}

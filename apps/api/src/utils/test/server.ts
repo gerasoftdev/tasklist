@@ -12,6 +12,7 @@ const defaultConfig: Config = {
   ...defaultConfigValues,
   NODE_ENV: 'test',
   CORS_ALLOWLIST: [],
+  DB_CONNECTION_STRING: 'mock-db-connection-string',
 };
 
 type Options = {
