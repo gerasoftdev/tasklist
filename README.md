@@ -19,6 +19,7 @@ This is a TypeScript monorepo containing the packages, and apps required for the
 ## Apps
 
 - [tasklist-web](./apps/tasklist-web/README.md) - the web app frontend
+- [api](./apps/api/README.md) - the API
 
 ## Packages
 
@@ -28,6 +29,10 @@ This is a TypeScript monorepo containing the packages, and apps required for the
 - [typescript-config](./packages/typescript-config/README.md) - typescript configs
 - [ui](./packages/ui/README.md) - design library (components, themes, utils)
 - [vitest-presets](./packages/vitest-presets/README.md) - vitest presets
+- [graphql](./packages/graphql/README.md) - GraphQL utilities
+- [mongodb-helpers](./packages/mongodb-helpers/README.md) - MongoDB helpers
+- [types](./packages/types/README.md) - Reusable types
+- [validation-schema](./packages/validation-schema/README.md) - Zod validation schemas
 
 ## Commands
 

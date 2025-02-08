@@ -8,6 +8,7 @@
     "clean:deps": "turbo run clean:deps && rm -rf node_modules",
     "dev": "turbo run clean && turbo run dev",
     "format": "prettier --write \"**/*.{ts,tsx,md,json,js,cjs}\" --cache --cache-location ./.prettiercache",
+    "graphql-codegen": "turbo run graphql-codegen",
     "lint": "eslint . --cache && turbo run lint",
     "lint:fix": "eslint . --cache --fix && turbo run lint:fix",
     "prepare": "husky",
