@@ -9,8 +9,19 @@ type ErrorProps = {
 };
 
 const errorsProps: Partial<Record<keyof typeof errors, ErrorProps>> = {
-  somethingWentWrong: {
-    statusCode: 500,
+  verificationTokenInvalid: {
+    doLogout: true,
+  },
+  passwordTokenInvalid: {
+    doLogout: true,
+  },
+  refreshTokenInvalid: {
+    doLogout: true,
+    statusCode: 401,
+  },
+  unauthorized: {
+    doLogout: true,
+    statusCode: 401,
   },
 };
 
@@ -40,5 +51,13 @@ export class GeneralError extends GraphQLError {
     this.extensions.id = this.extensions.id || uuid();
     this.extensions.isHandled = true;
     this.statusCode = statusCode || 500;
+  }
+}
+
+export class AuthError extends GeneralError {
+  constructor(code: keyof typeof errors = 'unauthorized', props: Props = {}) {
+    super(code, props);
+
+    this.extensions.doLogout = this.extensions.doLogout || true;
   }
 }

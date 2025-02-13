@@ -338,6 +338,9 @@ importers:
       '@repo/translation':
         specifier: workspace:*
         version: link:../../packages/translation
+      '@repo/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       close-with-grace:
         specifier: 'catalog:'
         version: 2.2.0
@@ -897,6 +900,15 @@ importers:
 
   packages/utils:
     dependencies:
+      '@repo/translation':
+        specifier: 'workspace:'
+        version: link:../translation
+      graphql:
+        specifier: 'catalog:'
+        version: 16.10.0
+      uuid:
+        specifier: 'catalog:'
+        version: 10.0.0
       zod:
         specifier: 'catalog:'
         version: 3.24.1
@@ -913,6 +925,9 @@ importers:
       '@repo/vitest-presets':
         specifier: workspace:*
         version: link:../vitest-presets
+      '@types/uuid':
+        specifier: 'catalog:'
+        version: 10.0.0
       tsup:
         specifier: 'catalog:'
         version: 8.2.0(jiti@2.4.2)(postcss@8.4.47)(typescript@5.7.3)(yaml@2.7.0)

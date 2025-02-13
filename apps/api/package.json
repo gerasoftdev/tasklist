@@ -31,6 +31,7 @@
     "@repo/graphql": "workspace:*",
     "@repo/mongodb-helpers": "workspace:*",
     "@repo/translation": "workspace:*",
+    "@repo/utils": "workspace:*",
     "close-with-grace": "catalog:",
     "fastify": "catalog:",
     "fastify-plugin": "catalog:",

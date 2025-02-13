@@ -1,8 +1,7 @@
 {
-  "name": "@repo/utils",
+  "name": "@repo/auth-service",
   "version": "0.0.1",
   "private": true,
-  "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./src/index.ts",
@@ -12,21 +11,33 @@
     "dev": "tsup --watch",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
+    "start": "node dist/index.js",
     "test": "vitest run --coverage",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@repo/translation": "workspace:",
-    "graphql": "catalog:",
+    "@repo/comms-service": "workspace:*",
+    "@repo/mongodb-helpers": "workspace:*",
+    "@repo/translation": "workspace:*",
+    "@repo/utils": "workspace:*",
+    "@repo/validation-schema": "workspace:*",
+    "bcrypt": "catalog:",
+    "jsonwebtoken": "catalog:",
+    "mongoose": "catalog:",
     "uuid": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/tsup-config": "workspace:*",
+    "@repo/types": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@repo/vitest-presets": "workspace:*",
+    "@types/bcrypt": "catalog:",
+    "@types/jsonwebtoken": "catalog:",
+    "@types/node": "catalog:",
     "@types/uuid": "catalog:",
+    "mongodb-memory-server": "catalog:",
     "tsup": "catalog:",
     "vitest": "catalog:"
   }
