@@ -2,17 +2,19 @@ import compress from '@fastify/compress';
 import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import rateLimit from '@fastify/rate-limit';
-import type { FastifyServerOptions } from 'fastify';
+import type { FastifyError, FastifyServerOptions } from 'fastify';
 import Fastify from 'fastify';
 import underPressure from '@fastify/under-pressure';
 import { fastifySwagger } from '@fastify/swagger';
 import fastifySwaggerUI from '@fastify/swagger-ui';
+import { fastifyCookie } from '@fastify/cookie';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import {
   jsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
 } from 'fastify-type-provider-zod';
+import { GeneralError } from '@repo/utils';
 import type { Config } from '@/config/schema';
 import { openapi } from '@/openapi';
 import { routes } from '@/routes';
@@ -38,6 +40,24 @@ export const startServer = async (config: Config) => {
   fastify.setValidatorCompiler(validatorCompiler);
   fastify.setSerializerCompiler(serializerCompiler);
 
+  fastify.setErrorHandler(
+    (error: FastifyError | GeneralError, request, response) => {
+      if (error instanceof GeneralError) {
+        response.status(error.statusCode).send({
+          ...error,
+        });
+      } else {
+        fastify.log.error(error);
+        const somethingWentWrongError = new GeneralError('somethingWentWrong');
+        response
+          .status(error.statusCode || somethingWentWrongError.statusCode)
+          .send({
+            ...somethingWentWrongError,
+          });
+      }
+    },
+  );
+
   await Promise.all([
     fastify.register(fastifySwagger, {
       openapi,
@@ -48,6 +68,9 @@ export const startServer = async (config: Config) => {
       routePrefix: '/documentation',
     }),
     fastify.register(rateLimit),
+    fastify.register(fastifyCookie, {
+      secret: config.COOKIES_KEY,
+    }),
     fastify.register(helmet),
     fastify.register(cors, {
       origin: config.CORS_ALLOWLIST,
