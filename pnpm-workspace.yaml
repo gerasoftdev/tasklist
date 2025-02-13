@@ -89,3 +89,7 @@ catalog:
   "@fastify/swagger-ui": "^4.1.0"
   "@fastify/under-pressure": "^8.5.1"
   "mongoose": "8.7.1"
+
+  "@aws-sdk/client-ses": "^3.670.0"
+  "nodemailer": "^6.9.15"
+  "@types/nodemailer": "^6.4.16"

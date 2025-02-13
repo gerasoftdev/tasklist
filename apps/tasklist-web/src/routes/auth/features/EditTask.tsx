@@ -74,7 +74,7 @@ export const EditTaskModal: FC<EditTaskContentProps> = ({
   return (
     <Modal className="w-xxl" onClose={onCancel} title={t('task:editTask')}>
       <form
-        className="min-h-n min-w-n flex-1 flex-col gap-sm"
+        className="min-h-n min-w-n gap-sm flex-1 flex-col"
         onSubmit={handleSubmitWrapper(handleSubmit)}
       >
         <Input
@@ -86,7 +86,7 @@ export const EditTaskModal: FC<EditTaskContentProps> = ({
           label={t('common:name')}
           placeholder={t('task:taskName')}
         />
-        <Row className="mt-auto gap-md">
+        <Row className="gap-md mt-auto">
           <GhostButton className="mr-auto" onClick={handleDelete} type="button">
             <BodyRegular $bold className="text-red">
               {t('common:delete')}

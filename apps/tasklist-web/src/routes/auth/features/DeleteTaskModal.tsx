@@ -38,7 +38,7 @@ export const DeleteTaskModal: FC<Props> = ({ task, onSubmit, onCancel }) => {
       <BodySmall $bold>
         {t('task:deleteTaskDescription', { taskName: task.name })}
       </BodySmall>
-      <Row className="justify-end gap-md">
+      <Row className="gap-md justify-end">
         <SecondaryButton
           label={t('common:cancel')}
           onClick={handleCancelDelete}

@@ -1,0 +1,9 @@
+{
+  "extends": ["//"],
+  "globalEnv": ["DOMAIN_NAME"],
+  "tasks": {
+    "build": {
+      "outputs": ["dist/**"]
+    }
+  }
+}
