@@ -26,6 +26,9 @@ export type Incremental<T> =
   | {
       [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
     };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & {
+  [P in K]-?: NonNullable<T[P]>;
+};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string };
@@ -50,6 +53,48 @@ export type ArrayOfStringFilters = {
   regex?: InputMaybe<Scalars['RegExp']['input']>;
 };
 
+export type LogoutInput = {
+  refreshToken: Scalars['String']['input'];
+};
+
+export type Mutation = {
+  logout: Scalars['Boolean']['output'];
+  refreshTokens: TokensResponse;
+  resetPassword: Scalars['Boolean']['output'];
+  setPassword: Scalars['Boolean']['output'];
+  signIn: TokensResponse;
+  signUp: Scalars['Boolean']['output'];
+  verifyEmail: VerifyEmailResponse;
+};
+
+export type MutationLogoutArgs = {
+  data?: InputMaybe<LogoutInput>;
+};
+
+export type MutationRefreshTokensArgs = {
+  data?: InputMaybe<RefreshTokensInput>;
+};
+
+export type MutationResetPasswordArgs = {
+  data: ResetPasswordInput;
+};
+
+export type MutationSetPasswordArgs = {
+  data: SetPasswordInput;
+};
+
+export type MutationSignInArgs = {
+  data: SignInInput;
+};
+
+export type MutationSignUpArgs = {
+  data: SignUpInput;
+};
+
+export type MutationVerifyEmailArgs = {
+  data: VerifyEmailInput;
+};
+
 export type NumberFilters = {
   eq?: InputMaybe<Scalars['BigInt']['input']>;
   gt?: InputMaybe<Scalars['BigInt']['input']>;
@@ -67,6 +112,28 @@ export type Query = {
   health: Scalars['Boolean']['output'];
 };
 
+export type RefreshTokensInput = {
+  refreshToken: Scalars['String']['input'];
+};
+
+export type ResetPasswordInput = {
+  email: Scalars['String']['input'];
+};
+
+export type SetPasswordInput = {
+  password: Scalars['String']['input'];
+  passwordTokenId: Scalars['String']['input'];
+};
+
+export type SignInInput = {
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+};
+
+export type SignUpInput = {
+  email: Scalars['String']['input'];
+};
+
 export enum SortMethod {
   asc = 'asc',
   desc = 'desc',
@@ -80,6 +147,19 @@ export type StringFilters = {
   not?: InputMaybe<Scalars['RegExp']['input']>;
   options?: InputMaybe<Scalars['String']['input']>;
   regex?: InputMaybe<Scalars['RegExp']['input']>;
+};
+
+export type TokensResponse = {
+  accessToken: Scalars['String']['output'];
+  refreshToken: Scalars['String']['output'];
+};
+
+export type VerifyEmailInput = {
+  verificationTokenId: Scalars['String']['input'];
+};
+
+export type VerifyEmailResponse = {
+  passwordTokenId: Maybe<Scalars['String']['output']>;
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -193,12 +273,22 @@ export type ResolversTypes = {
   ArrayOfStringFilters: ArrayOfStringFilters;
   BigInt: ResolverTypeWrapper<Scalars['BigInt']['output']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  LogoutInput: LogoutInput;
+  Mutation: ResolverTypeWrapper<{}>;
   NumberFilters: NumberFilters;
   Query: ResolverTypeWrapper<{}>;
+  RefreshTokensInput: RefreshTokensInput;
   RegExp: ResolverTypeWrapper<Scalars['RegExp']['output']>;
+  ResetPasswordInput: ResetPasswordInput;
+  SetPasswordInput: SetPasswordInput;
+  SignInInput: SignInInput;
+  SignUpInput: SignUpInput;
   SortMethod: SortMethod;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   StringFilters: StringFilters;
+  TokensResponse: ResolverTypeWrapper<TokensResponse>;
+  VerifyEmailInput: VerifyEmailInput;
+  VerifyEmailResponse: ResolverTypeWrapper<VerifyEmailResponse>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -207,17 +297,76 @@ export type ResolversParentTypes = {
   ArrayOfStringFilters: ArrayOfStringFilters;
   BigInt: Scalars['BigInt']['output'];
   Boolean: Scalars['Boolean']['output'];
+  LogoutInput: LogoutInput;
+  Mutation: {};
   NumberFilters: NumberFilters;
   Query: {};
+  RefreshTokensInput: RefreshTokensInput;
   RegExp: Scalars['RegExp']['output'];
+  ResetPasswordInput: ResetPasswordInput;
+  SetPasswordInput: SetPasswordInput;
+  SignInInput: SignInInput;
+  SignUpInput: SignUpInput;
   String: Scalars['String']['output'];
   StringFilters: StringFilters;
+  TokensResponse: TokensResponse;
+  VerifyEmailInput: VerifyEmailInput;
+  VerifyEmailResponse: VerifyEmailResponse;
 };
 
 export interface BigIntScalarConfig
   extends GraphQLScalarTypeConfig<ResolversTypes['BigInt'], any> {
   name: 'BigInt';
 }
+
+export type MutationResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation'],
+> = {
+  logout?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    Partial<MutationLogoutArgs>
+  >;
+  refreshTokens?: Resolver<
+    ResolversTypes['TokensResponse'],
+    ParentType,
+    ContextType,
+    Partial<MutationRefreshTokensArgs>
+  >;
+  resetPassword?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationResetPasswordArgs, 'data'>
+  >;
+  setPassword?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationSetPasswordArgs, 'data'>
+  >;
+  signIn?: Resolver<
+    ResolversTypes['TokensResponse'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationSignInArgs, 'data'>
+  >;
+  signUp?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationSignUpArgs, 'data'>
+  >;
+  verifyEmail?: Resolver<
+    ResolversTypes['VerifyEmailResponse'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationVerifyEmailArgs, 'data'>
+  >;
+};
 
 export type QueryResolvers<
   ContextType = any,
@@ -232,8 +381,34 @@ export interface RegExpScalarConfig
   name: 'RegExp';
 }
 
+export type TokensResponseResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['TokensResponse'] = ResolversParentTypes['TokensResponse'],
+> = {
+  accessToken?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  refreshToken?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type VerifyEmailResponseResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['VerifyEmailResponse'] = ResolversParentTypes['VerifyEmailResponse'],
+> = {
+  passwordTokenId?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
   BigInt?: GraphQLScalarType;
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   RegExp?: GraphQLScalarType;
+  TokensResponse?: TokensResponseResolvers<ContextType>;
+  VerifyEmailResponse?: VerifyEmailResponseResolvers<ContextType>;
 };
