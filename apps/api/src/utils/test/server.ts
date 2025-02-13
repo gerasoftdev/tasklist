@@ -13,6 +13,13 @@ const defaultConfig: Config = {
   NODE_ENV: 'test',
   CORS_ALLOWLIST: [],
   DB_CONNECTION_STRING: 'mock-db-connection-string',
+  AWS_REGION: 'eu-west-1',
+  DOMAIN_NAME: 'https://example.com',
+  VERIFICATION_URL: '/verification',
+  PASSWORD_RESET_URL: '/passwordReset',
+  REFRESH_TOKEN_KEY: 'refreshTokenKey',
+  ACCESS_TOKEN_KEY: 'accessTokenKey',
+  COOKIES_KEY: 'cookiesKey',
 };
 
 type Options = {
