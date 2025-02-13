@@ -1,3 +1,14 @@
 {
-  "somethingWentWrong": "Something went wrong."
+  "organizationDoesNotExist": "The organization you specified does not exist",
+  "userDoesNotExist": "The user you specified does not exist",
+  "taskListDoesNotExist": "The task list you specified does not exist",
+  "emailInvalid": "Please enter a valid email address",
+  "userAlreadyRegistered": "This email address has already been registered.",
+  "verificationTokenInvalid": "This link is not valid anymore, try to register again.",
+  "passwordTokenInvalid": "This link is not valid anymore, request another password reset.",
+  "noPasswordSet": "You don't have a password set up. Please request a new password.",
+  "invalidCredentials": "The credentials you entered are invalid",
+  "refreshTokenInvalid": "For security reasons you have been logged out. Please log in again.",
+  "somethingWentWrong": "Something went wrong.",
+  "unauthorized": "You are not authorised to perform this action."
 }

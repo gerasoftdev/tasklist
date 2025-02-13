@@ -6,7 +6,7 @@
     "clean": "turbo run clean",
     "clean:deep": "turbo run clean:deep && rm -rf node_modules",
     "clean:deps": "turbo run clean:deps && rm -rf node_modules",
-    "dev": "turbo run clean && turbo run dev",
+    "dev": "turbo run clean && turbo run dev --concurrency 12",
     "format": "prettier --write \"**/*.{ts,tsx,md,json,js,cjs}\" --cache --cache-location ./.prettiercache",
     "graphql-codegen": "turbo run graphql-codegen",
     "lint": "eslint . --cache && turbo run lint",
