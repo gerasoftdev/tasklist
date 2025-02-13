@@ -12,7 +12,7 @@ export const AddTaskPlusButton = () => {
   return (
     <PrimaryButton
       $size={null}
-      className="ml-auto rounded-full p-md"
+      className="p-md ml-auto rounded-full"
       onClick={handleClick}
     >
       <IoAdd size={size.xs} />

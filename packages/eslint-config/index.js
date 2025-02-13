@@ -27,6 +27,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/consistent-type-definitions': ['warn', 'type'],
     '@typescript-eslint/no-floating-promises': 'off',
+    '@typescript-eslint/restrict-template-expressions': 'off',
   },
   overrides: [
     {

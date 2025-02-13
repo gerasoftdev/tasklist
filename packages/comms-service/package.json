@@ -1,0 +1,38 @@
+{
+  "name": "@repo/comms-service",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "tsup --clean",
+    "clean": "rm -rf dist",
+    "dev": "tsup --watch",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --cache --fix",
+    "start": "node dist/index.js",
+    "test": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aws-sdk/client-ses": "catalog:",
+    "@repo/translation": "workspace:*",
+    "@repo/utils": "workspace:*",
+    "nodemailer": "catalog:",
+    "uuid": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tsup-config": "workspace:*",
+    "@repo/types": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@repo/vitest-presets": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/nodemailer": "catalog:",
+    "@types/uuid": "catalog:",
+    "tsup": "catalog:",
+    "vitest": "catalog:"
+  }
+}

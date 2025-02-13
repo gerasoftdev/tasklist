@@ -21,7 +21,7 @@ export const Task: FC<Props> = ({ task: { _id, name, isCompleted } }) => {
   };
 
   return (
-    <Col className="border-b border-g300">
+    <Col className="border-g300 border-b">
       <ButtonBase
         $size={null}
         className={clsx('items-center', 'rounded-sm')}

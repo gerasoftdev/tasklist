@@ -1,0 +1,29 @@
+{
+  "name": "@repo/utils",
+  "version": "0.0.1",
+  "private": true,
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "tsup --clean",
+    "clean": "rm -rf dist",
+    "dev": "tsup --watch",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --cache --fix",
+    "test": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tsup-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@repo/vitest-presets": "workspace:*",
+    "tsup": "catalog:",
+    "vitest": "catalog:"
+  }
+}
