@@ -45,6 +45,48 @@ export type ArrayOfStringFilters = {
   regex?: InputMaybe<Scalars['RegExp']['input']>;
 };
 
+export type LogoutInput = {
+  refreshToken: Scalars['String']['input'];
+};
+
+export type Mutation = {
+  logout: Scalars['Boolean']['output'];
+  refreshTokens: TokensResponse;
+  resetPassword: Scalars['Boolean']['output'];
+  setPassword: Scalars['Boolean']['output'];
+  signIn: TokensResponse;
+  signUp: Scalars['Boolean']['output'];
+  verifyEmail: VerifyEmailResponse;
+};
+
+export type MutationLogoutArgs = {
+  data?: InputMaybe<LogoutInput>;
+};
+
+export type MutationRefreshTokensArgs = {
+  data?: InputMaybe<RefreshTokensInput>;
+};
+
+export type MutationResetPasswordArgs = {
+  data: ResetPasswordInput;
+};
+
+export type MutationSetPasswordArgs = {
+  data: SetPasswordInput;
+};
+
+export type MutationSignInArgs = {
+  data: SignInInput;
+};
+
+export type MutationSignUpArgs = {
+  data: SignUpInput;
+};
+
+export type MutationVerifyEmailArgs = {
+  data: VerifyEmailInput;
+};
+
 export type NumberFilters = {
   eq?: InputMaybe<Scalars['BigInt']['input']>;
   gt?: InputMaybe<Scalars['BigInt']['input']>;
@@ -62,6 +104,28 @@ export type Query = {
   health: Scalars['Boolean']['output'];
 };
 
+export type RefreshTokensInput = {
+  refreshToken: Scalars['String']['input'];
+};
+
+export type ResetPasswordInput = {
+  email: Scalars['String']['input'];
+};
+
+export type SetPasswordInput = {
+  password: Scalars['String']['input'];
+  passwordTokenId: Scalars['String']['input'];
+};
+
+export type SignInInput = {
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+};
+
+export type SignUpInput = {
+  email: Scalars['String']['input'];
+};
+
 export enum SortMethod {
   asc = 'asc',
   desc = 'desc',
@@ -76,6 +140,65 @@ export type StringFilters = {
   options?: InputMaybe<Scalars['String']['input']>;
   regex?: InputMaybe<Scalars['RegExp']['input']>;
 };
+
+export type TokensResponse = {
+  accessToken: Scalars['String']['output'];
+  refreshToken: Scalars['String']['output'];
+};
+
+export type VerifyEmailInput = {
+  verificationTokenId: Scalars['String']['input'];
+};
+
+export type VerifyEmailResponse = {
+  passwordTokenId: Maybe<Scalars['String']['output']>;
+};
+
+export type SignUpMutationVariables = Exact<{
+  data: SignUpInput;
+}>;
+
+export type SignUpMutation = { signUp: boolean };
+
+export type VerifyEmailMutationVariables = Exact<{
+  data: VerifyEmailInput;
+}>;
+
+export type VerifyEmailMutation = {
+  verifyEmail: { passwordTokenId: string | null };
+};
+
+export type SetPasswordMutationVariables = Exact<{
+  data: SetPasswordInput;
+}>;
+
+export type SetPasswordMutation = { setPassword: boolean };
+
+export type ResetPasswordMutationVariables = Exact<{
+  data: ResetPasswordInput;
+}>;
+
+export type ResetPasswordMutation = { resetPassword: boolean };
+
+export type SignInMutationVariables = Exact<{
+  data: SignInInput;
+}>;
+
+export type SignInMutation = { signIn: { accessToken: string } };
+
+export type RefreshTokensMutationVariables = Exact<{
+  data?: InputMaybe<RefreshTokensInput>;
+}>;
+
+export type RefreshTokensMutation = {
+  refreshTokens: { accessToken: string; refreshToken: string };
+};
+
+export type LogoutMutationVariables = Exact<{
+  data?: InputMaybe<LogoutInput>;
+}>;
+
+export type LogoutMutation = { logout: boolean };
 
 export type HealthQueryVariables = Exact<{ [key: string]: never }>;
 
