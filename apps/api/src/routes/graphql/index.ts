@@ -4,7 +4,7 @@ import {
   fastifyApolloHandler,
 } from '@as-integrations/fastify';
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod';
-import { GeneralError } from '@/utils/error';
+import { GeneralError } from '@repo/utils';
 import { contextFunction } from '@/graphql/context';
 import type { Context } from '@/graphql/context';
 import { executableSchema } from '@/graphql/executableSchema';

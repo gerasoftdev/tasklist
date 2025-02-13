@@ -6,6 +6,8 @@ import type { Config } from './handlers/types';
 const devEmailHandler = async (props: unknown) => {
   // eslint-disable-next-line no-console -- only for debugging
   console.log(props);
+
+  return true;
 };
 
 export const commsServiceFactory = async (config: Config) => {
