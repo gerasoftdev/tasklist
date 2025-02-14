@@ -7,6 +7,9 @@ export const userTypeDefs = gql`
     email: String!
   }
 
+  input VerifyPasswordTokenInput {
+    passwordTokenId: String!
+  }
   input VerifyEmailInput {
     verificationTokenId: String!
   }
@@ -44,6 +47,7 @@ export const userTypeDefs = gql`
   type Mutation {
     signUp(data: SignUpInput!): Boolean!
     verifyEmail(data: VerifyEmailInput!): VerifyEmailResponse!
+    verifyPasswordToken(data: VerifyPasswordTokenInput!): Boolean!
     setPassword(data: SetPasswordInput!): Boolean!
     resetPassword(data: ResetPasswordInput!): Boolean!
     signIn(data: SignInInput!): TokensResponse!

@@ -15,6 +15,11 @@ export const VerifyEmail = gql`
     }
   }
 `;
+export const VerifyPasswordToken = gql`
+  mutation verifyPasswordToken($data: VerifyPasswordTokenInput!) {
+    verifyPasswordToken(data: $data)
+  }
+`;
 
 export const SetPassword = gql`
   mutation setPassword($data: SetPasswordInput!) {

@@ -65,6 +65,7 @@ export type Mutation = {
   signIn: TokensResponse;
   signUp: Scalars['Boolean']['output'];
   verifyEmail: VerifyEmailResponse;
+  verifyPasswordToken: Scalars['Boolean']['output'];
 };
 
 export type MutationLogoutArgs = {
@@ -93,6 +94,10 @@ export type MutationSignUpArgs = {
 
 export type MutationVerifyEmailArgs = {
   data: VerifyEmailInput;
+};
+
+export type MutationVerifyPasswordTokenArgs = {
+  data: VerifyPasswordTokenInput;
 };
 
 export type NumberFilters = {
@@ -160,6 +165,10 @@ export type VerifyEmailInput = {
 
 export type VerifyEmailResponse = {
   passwordTokenId: Maybe<Scalars['String']['output']>;
+};
+
+export type VerifyPasswordTokenInput = {
+  passwordTokenId: Scalars['String']['input'];
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -289,6 +298,7 @@ export type ResolversTypes = {
   TokensResponse: ResolverTypeWrapper<TokensResponse>;
   VerifyEmailInput: VerifyEmailInput;
   VerifyEmailResponse: ResolverTypeWrapper<VerifyEmailResponse>;
+  VerifyPasswordTokenInput: VerifyPasswordTokenInput;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -312,6 +322,7 @@ export type ResolversParentTypes = {
   TokensResponse: TokensResponse;
   VerifyEmailInput: VerifyEmailInput;
   VerifyEmailResponse: VerifyEmailResponse;
+  VerifyPasswordTokenInput: VerifyPasswordTokenInput;
 };
 
 export interface BigIntScalarConfig
@@ -365,6 +376,12 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationVerifyEmailArgs, 'data'>
+  >;
+  verifyPasswordToken?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationVerifyPasswordTokenArgs, 'data'>
   >;
 };
 

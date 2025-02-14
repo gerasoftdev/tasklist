@@ -11,6 +11,7 @@ import {
   resetPasswordArgsSchema,
   setPasswordArgsSchema,
   verifyUserArgsSchema,
+  verifyPasswordTokenArgsSchema,
 } from './schema';
 
 export const createVerificationToken = ({
@@ -82,6 +83,17 @@ export const verifyEmail = ({
     });
 
     return passwordToken.toObject();
+  });
+
+export const verifyPasswordToken = ({ PasswordTokenModel }: HandlerProps) =>
+  validateArgs(verifyPasswordTokenArgsSchema, async ({ passwordTokenId }) => {
+    const passwordToken =
+      await PasswordTokenModel.findById(passwordTokenId).exec();
+
+    if (!passwordToken) return false;
+    if (passwordToken.expiresAt < Date.now()) return false;
+
+    return true;
   });
 
 export const setPassword = ({

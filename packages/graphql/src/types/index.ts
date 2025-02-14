@@ -57,6 +57,7 @@ export type Mutation = {
   signIn: TokensResponse;
   signUp: Scalars['Boolean']['output'];
   verifyEmail: VerifyEmailResponse;
+  verifyPasswordToken: Scalars['Boolean']['output'];
 };
 
 export type MutationLogoutArgs = {
@@ -85,6 +86,10 @@ export type MutationSignUpArgs = {
 
 export type MutationVerifyEmailArgs = {
   data: VerifyEmailInput;
+};
+
+export type MutationVerifyPasswordTokenArgs = {
+  data: VerifyPasswordTokenInput;
 };
 
 export type NumberFilters = {
@@ -154,6 +159,10 @@ export type VerifyEmailResponse = {
   passwordTokenId: Maybe<Scalars['String']['output']>;
 };
 
+export type VerifyPasswordTokenInput = {
+  passwordTokenId: Scalars['String']['input'];
+};
+
 export type SignUpMutationVariables = Exact<{
   data: SignUpInput;
 }>;
@@ -167,6 +176,12 @@ export type VerifyEmailMutationVariables = Exact<{
 export type VerifyEmailMutation = {
   verifyEmail: { passwordTokenId: string | null };
 };
+
+export type VerifyPasswordTokenMutationVariables = Exact<{
+  data: VerifyPasswordTokenInput;
+}>;
+
+export type VerifyPasswordTokenMutation = { verifyPasswordToken: boolean };
 
 export type SetPasswordMutationVariables = Exact<{
   data: SetPasswordInput;

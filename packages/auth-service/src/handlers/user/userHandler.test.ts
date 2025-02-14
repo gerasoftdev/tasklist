@@ -30,6 +30,7 @@ import {
   signIn,
   refreshTokens,
   removeRefreshToken,
+  verifyPasswordToken,
 } from '@/handlers/user';
 import {
   mockUser,
@@ -175,6 +176,43 @@ describe('Auth handlers', () => {
       await expect(
         verifyEmail(props)({ verificationTokenId: 'non-existent-token' }),
       ).rejects.toThrow(errors.verificationTokenInvalid);
+    });
+  });
+
+  describe('verifyPasswordToken', async () => {
+    beforeEach(async () => {
+      await createUser();
+    });
+
+    it('Returns true if the password token exists', async () => {
+      const token = await PasswordTokenModel.create(mockPasswordToken);
+
+      const result = await verifyPasswordToken(props)({
+        passwordTokenId: token._id,
+      });
+
+      expect(result).toBe(true);
+    });
+
+    it('Returns false if the password token does not exist', async () => {
+      const result = await verifyPasswordToken(props)({
+        passwordTokenId: 'non-existent-token',
+      });
+
+      expect(result).toBe(false);
+    });
+
+    it('Returns false if the password token has expired', async () => {
+      const token = await PasswordTokenModel.create({
+        ...mockPasswordToken,
+        expiresAt: 0,
+      });
+
+      const result = await verifyPasswordToken(props)({
+        passwordTokenId: token._id,
+      });
+
+      expect(result).toBe(false);
     });
   });
 

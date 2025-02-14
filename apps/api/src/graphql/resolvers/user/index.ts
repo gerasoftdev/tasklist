@@ -13,6 +13,15 @@ const signUpResolver: MutationResolvers<Context>['signUp'] = async (
   return true;
 };
 
+const verifyPasswordTokenResolver: MutationResolvers<Context>['verifyPasswordToken'] =
+  async (parent, { data: { passwordTokenId } }, context) => {
+    const isValid = await context.authService.verifyPasswordToken({
+      passwordTokenId,
+    });
+
+    return isValid;
+  };
+
 const verifyEmailResolver: MutationResolvers<Context>['verifyEmail'] = async (
   parent,
   { data: { verificationTokenId } },
@@ -94,6 +103,7 @@ export const userResolvers = {
   Mutation: {
     signUp: signUpResolver,
     verifyEmail: verifyEmailResolver,
+    verifyPasswordToken: verifyPasswordTokenResolver,
     setPassword: setPasswordResolver,
     resetPassword: resetPasswordResolver,
     signIn: signInResolver,

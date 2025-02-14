@@ -20,6 +20,10 @@ export const setPasswordArgsSchema = object({
   password: passwordSchema,
 });
 
+export const verifyPasswordTokenArgsSchema = object({
+  passwordTokenId: string(),
+});
+
 export const resetPasswordArgsSchema = object({
   email: string(),
 });
