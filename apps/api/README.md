@@ -23,12 +23,6 @@ A GraphQL API built with Fastify and Apollo Server, featuring strong TypeScript 
 cp apps/api/.env.sample apps/api/.env
 ```
 
-- Update apps/api/.env with your configuration:
-
-```
-DB_CONNECTION_STRING=mongodb://localhost:27017/tasklist-db
-```
-
 - Connect to local mongodb instance
 - run `pnpm dev`
 

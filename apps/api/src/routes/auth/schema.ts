@@ -7,6 +7,6 @@ export const refreshTokensBodySchema = object({
   .nullable();
 
 export const refreshTokensResponseSchema = object({
-  refreshToken: string(),
+  refreshToken: string().optional().nullable(),
   accessToken: string(),
 });
