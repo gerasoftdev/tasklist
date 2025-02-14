@@ -9,6 +9,7 @@ import {
   resetPassword,
   setPassword,
   verifyEmail,
+  verifyPasswordToken,
 } from './handlers';
 import {
   createUserModel,
@@ -58,6 +59,7 @@ export const authServiceFactory = async (config: Config) => {
     connection,
     createVerificationToken: createVerificationToken(props),
     verifyEmail: verifyEmail(props),
+    verifyPasswordToken: verifyPasswordToken(props),
     setPassword: setPassword(props),
     resetPassword: resetPassword(props),
     signIn: signIn(props),
