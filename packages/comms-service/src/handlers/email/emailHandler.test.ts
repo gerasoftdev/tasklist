@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import {
   sendPasswordResetEmail,
   sendVerificationEmail,
-} from '@/handlers/email/handler';
+} from '@/handlers/email';
 import { EmailUserNames } from '../../constants/emailUserNames';
 
 const mockSendMail = vi.fn().mockResolvedValue('Email sent');

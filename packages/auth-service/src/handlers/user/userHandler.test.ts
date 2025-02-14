@@ -30,7 +30,7 @@ import {
   signIn,
   refreshTokens,
   removeRefreshToken,
-} from '@/handlers/user/handler';
+} from '@/handlers/user';
 import {
   mockUser,
   mockVerificationToken,
