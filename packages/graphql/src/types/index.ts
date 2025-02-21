@@ -45,19 +45,45 @@ export type ArrayOfStringFilters = {
   regex?: InputMaybe<Scalars['RegExp']['input']>;
 };
 
+export type CreateTaskInput = {
+  _id?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+};
+
+export type DeleteTaskInput = {
+  _id: Scalars['String']['input'];
+};
+
+export type GetTasksResponse = {
+  data: Array<Task>;
+  limit: Scalars['BigInt']['output'];
+  offset: Scalars['BigInt']['output'];
+};
+
 export type LogoutInput = {
   refreshToken: Scalars['String']['input'];
 };
 
 export type Mutation = {
+  createTask: Task;
+  deleteTask: Scalars['Boolean']['output'];
   logout: Scalars['Boolean']['output'];
   refreshTokens: TokensResponse;
   resetPassword: Scalars['Boolean']['output'];
   setPassword: Scalars['Boolean']['output'];
   signIn: TokensResponse;
   signUp: Scalars['Boolean']['output'];
+  updateTask: Maybe<Task>;
   verifyEmail: VerifyEmailResponse;
   verifyPasswordToken: Scalars['Boolean']['output'];
+};
+
+export type MutationCreateTaskArgs = {
+  data: CreateTaskInput;
+};
+
+export type MutationDeleteTaskArgs = {
+  data: DeleteTaskInput;
 };
 
 export type MutationLogoutArgs = {
@@ -84,6 +110,10 @@ export type MutationSignUpArgs = {
   data: SignUpInput;
 };
 
+export type MutationUpdateTaskArgs = {
+  data: UpdateTaskInput;
+};
+
 export type MutationVerifyEmailArgs = {
   data: VerifyEmailInput;
 };
@@ -106,7 +136,20 @@ export type NumberFilters = {
 };
 
 export type Query = {
+  getTaskById: Maybe<Task>;
+  getTasks: GetTasksResponse;
   health: Scalars['Boolean']['output'];
+};
+
+export type QueryGetTaskByIdArgs = {
+  _id: Scalars['String']['input'];
+};
+
+export type QueryGetTasksArgs = {
+  filters?: InputMaybe<TaskFilters>;
+  limit?: InputMaybe<Scalars['BigInt']['input']>;
+  offset?: InputMaybe<Scalars['BigInt']['input']>;
+  sortBy?: InputMaybe<Array<TaskSortBy>>;
 };
 
 export type RefreshTokensInput = {
@@ -146,9 +189,41 @@ export type StringFilters = {
   regex?: InputMaybe<Scalars['RegExp']['input']>;
 };
 
+export type Task = {
+  _id: Scalars['String']['output'];
+  completedAt: Maybe<Scalars['BigInt']['output']>;
+  createdAt: Scalars['BigInt']['output'];
+  isCompleted: Scalars['Boolean']['output'];
+  name: Scalars['String']['output'];
+  orgId: Scalars['String']['output'];
+  updatedAt: Scalars['BigInt']['output'];
+};
+
+export type TaskFilters = {
+  _id?: InputMaybe<StringFilters>;
+  name?: InputMaybe<StringFilters>;
+};
+
+export type TaskSortBy = {
+  field: TaskSortField;
+  method: SortMethod;
+};
+
+export enum TaskSortField {
+  createdAt = 'createdAt',
+  name = 'name',
+  updatedAt = 'updatedAt',
+}
+
 export type TokensResponse = {
   accessToken: Scalars['String']['output'];
   refreshToken: Scalars['String']['output'];
+};
+
+export type UpdateTaskInput = {
+  _id: Scalars['String']['input'];
+  isCompleted?: InputMaybe<Scalars['Boolean']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type VerifyEmailInput = {
@@ -218,3 +293,51 @@ export type LogoutMutation = { logout: boolean };
 export type HealthQueryVariables = Exact<{ [key: string]: never }>;
 
 export type HealthQuery = { health: boolean };
+
+export type GetTasksQueryVariables = Exact<{
+  filters?: InputMaybe<TaskFilters>;
+  limit?: InputMaybe<Scalars['BigInt']['input']>;
+  offset?: InputMaybe<Scalars['BigInt']['input']>;
+  sortBy?: InputMaybe<Array<TaskSortBy>>;
+}>;
+
+export type GetTasksQuery = {
+  getTasks: {
+    offset: number;
+    limit: number;
+    data: Array<{ _id: string; name: string; isCompleted: boolean }>;
+  };
+};
+
+export type GetTaskQueryVariables = Exact<{
+  _id: Scalars['String']['input'];
+}>;
+
+export type GetTaskQuery = {
+  getTaskById: { _id: string; name: string } | null;
+};
+
+export type CreateTaskMutationVariables = Exact<{
+  data: CreateTaskInput;
+}>;
+
+export type CreateTaskMutation = { createTask: { _id: string } };
+
+export type UpdateTaskMutationVariables = Exact<{
+  data: UpdateTaskInput;
+}>;
+
+export type UpdateTaskMutation = {
+  updateTask: {
+    _id: string;
+    name: string;
+    isCompleted: boolean;
+    updatedAt: number;
+  } | null;
+};
+
+export type DeleteTaskMutationVariables = Exact<{
+  data: DeleteTaskInput;
+}>;
+
+export type DeleteTaskMutation = { deleteTask: boolean };

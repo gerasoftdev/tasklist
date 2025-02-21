@@ -21,6 +21,10 @@ const config: CodegenConfig = {
       config: {
         inputMaybeValue: 'T | undefined',
         maybeValue: 'T | null',
+        mapperTypeSuffix: 'Model',
+        mappers: {
+          Task: '@repo/types#Task',
+        },
         skipTypename: true,
         arrayInputCoercion: false,
         avoidOptionals: {

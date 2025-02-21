@@ -6,6 +6,7 @@ import {
   GraphQLScalarType,
   GraphQLScalarTypeConfig,
 } from 'graphql';
+import { Task as TaskModel } from '@repo/types';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = T | undefined;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -26,6 +27,7 @@ export type Incremental<T> =
   | {
       [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
     };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & {
   [P in K]-?: NonNullable<T[P]>;
 };
@@ -53,19 +55,45 @@ export type ArrayOfStringFilters = {
   regex?: InputMaybe<Scalars['RegExp']['input']>;
 };
 
+export type CreateTaskInput = {
+  _id?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+};
+
+export type DeleteTaskInput = {
+  _id: Scalars['String']['input'];
+};
+
+export type GetTasksResponse = {
+  data: Array<Task>;
+  limit: Scalars['BigInt']['output'];
+  offset: Scalars['BigInt']['output'];
+};
+
 export type LogoutInput = {
   refreshToken: Scalars['String']['input'];
 };
 
 export type Mutation = {
+  createTask: Task;
+  deleteTask: Scalars['Boolean']['output'];
   logout: Scalars['Boolean']['output'];
   refreshTokens: TokensResponse;
   resetPassword: Scalars['Boolean']['output'];
   setPassword: Scalars['Boolean']['output'];
   signIn: TokensResponse;
   signUp: Scalars['Boolean']['output'];
+  updateTask: Maybe<Task>;
   verifyEmail: VerifyEmailResponse;
   verifyPasswordToken: Scalars['Boolean']['output'];
+};
+
+export type MutationCreateTaskArgs = {
+  data: CreateTaskInput;
+};
+
+export type MutationDeleteTaskArgs = {
+  data: DeleteTaskInput;
 };
 
 export type MutationLogoutArgs = {
@@ -92,6 +120,10 @@ export type MutationSignUpArgs = {
   data: SignUpInput;
 };
 
+export type MutationUpdateTaskArgs = {
+  data: UpdateTaskInput;
+};
+
 export type MutationVerifyEmailArgs = {
   data: VerifyEmailInput;
 };
@@ -114,7 +146,20 @@ export type NumberFilters = {
 };
 
 export type Query = {
+  getTaskById: Maybe<Task>;
+  getTasks: GetTasksResponse;
   health: Scalars['Boolean']['output'];
+};
+
+export type QueryGetTaskByIdArgs = {
+  _id: Scalars['String']['input'];
+};
+
+export type QueryGetTasksArgs = {
+  filters?: InputMaybe<TaskFilters>;
+  limit?: InputMaybe<Scalars['BigInt']['input']>;
+  offset?: InputMaybe<Scalars['BigInt']['input']>;
+  sortBy?: InputMaybe<Array<TaskSortBy>>;
 };
 
 export type RefreshTokensInput = {
@@ -154,9 +199,41 @@ export type StringFilters = {
   regex?: InputMaybe<Scalars['RegExp']['input']>;
 };
 
+export type Task = {
+  _id: Scalars['String']['output'];
+  completedAt: Maybe<Scalars['BigInt']['output']>;
+  createdAt: Scalars['BigInt']['output'];
+  isCompleted: Scalars['Boolean']['output'];
+  name: Scalars['String']['output'];
+  orgId: Scalars['String']['output'];
+  updatedAt: Scalars['BigInt']['output'];
+};
+
+export type TaskFilters = {
+  _id?: InputMaybe<StringFilters>;
+  name?: InputMaybe<StringFilters>;
+};
+
+export type TaskSortBy = {
+  field: TaskSortField;
+  method: SortMethod;
+};
+
+export enum TaskSortField {
+  createdAt = 'createdAt',
+  name = 'name',
+  updatedAt = 'updatedAt',
+}
+
 export type TokensResponse = {
   accessToken: Scalars['String']['output'];
   refreshToken: Scalars['String']['output'];
+};
+
+export type UpdateTaskInput = {
+  _id: Scalars['String']['input'];
+  isCompleted?: InputMaybe<Scalars['Boolean']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type VerifyEmailInput = {
@@ -282,6 +359,11 @@ export type ResolversTypes = {
   ArrayOfStringFilters: ArrayOfStringFilters;
   BigInt: ResolverTypeWrapper<Scalars['BigInt']['output']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  CreateTaskInput: CreateTaskInput;
+  DeleteTaskInput: DeleteTaskInput;
+  GetTasksResponse: ResolverTypeWrapper<
+    Omit<GetTasksResponse, 'data'> & { data: Array<ResolversTypes['Task']> }
+  >;
   LogoutInput: LogoutInput;
   Mutation: ResolverTypeWrapper<{}>;
   NumberFilters: NumberFilters;
@@ -295,7 +377,12 @@ export type ResolversTypes = {
   SortMethod: SortMethod;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   StringFilters: StringFilters;
+  Task: ResolverTypeWrapper<TaskModel>;
+  TaskFilters: TaskFilters;
+  TaskSortBy: TaskSortBy;
+  TaskSortField: TaskSortField;
   TokensResponse: ResolverTypeWrapper<TokensResponse>;
+  UpdateTaskInput: UpdateTaskInput;
   VerifyEmailInput: VerifyEmailInput;
   VerifyEmailResponse: ResolverTypeWrapper<VerifyEmailResponse>;
   VerifyPasswordTokenInput: VerifyPasswordTokenInput;
@@ -307,6 +394,11 @@ export type ResolversParentTypes = {
   ArrayOfStringFilters: ArrayOfStringFilters;
   BigInt: Scalars['BigInt']['output'];
   Boolean: Scalars['Boolean']['output'];
+  CreateTaskInput: CreateTaskInput;
+  DeleteTaskInput: DeleteTaskInput;
+  GetTasksResponse: Omit<GetTasksResponse, 'data'> & {
+    data: Array<ResolversParentTypes['Task']>;
+  };
   LogoutInput: LogoutInput;
   Mutation: {};
   NumberFilters: NumberFilters;
@@ -319,7 +411,11 @@ export type ResolversParentTypes = {
   SignUpInput: SignUpInput;
   String: Scalars['String']['output'];
   StringFilters: StringFilters;
+  Task: TaskModel;
+  TaskFilters: TaskFilters;
+  TaskSortBy: TaskSortBy;
   TokensResponse: TokensResponse;
+  UpdateTaskInput: UpdateTaskInput;
   VerifyEmailInput: VerifyEmailInput;
   VerifyEmailResponse: VerifyEmailResponse;
   VerifyPasswordTokenInput: VerifyPasswordTokenInput;
@@ -330,11 +426,34 @@ export interface BigIntScalarConfig
   name: 'BigInt';
 }
 
+export type GetTasksResponseResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['GetTasksResponse'] = ResolversParentTypes['GetTasksResponse'],
+> = {
+  data?: Resolver<Array<ResolversTypes['Task']>, ParentType, ContextType>;
+  limit?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  offset?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<
   ContextType = any,
   ParentType extends
     ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation'],
 > = {
+  createTask?: Resolver<
+    ResolversTypes['Task'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateTaskArgs, 'data'>
+  >;
+  deleteTask?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationDeleteTaskArgs, 'data'>
+  >;
   logout?: Resolver<
     ResolversTypes['Boolean'],
     ParentType,
@@ -371,6 +490,12 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationSignUpArgs, 'data'>
   >;
+  updateTask?: Resolver<
+    Maybe<ResolversTypes['Task']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateTaskArgs, 'data'>
+  >;
   verifyEmail?: Resolver<
     ResolversTypes['VerifyEmailResponse'],
     ParentType,
@@ -390,6 +515,18 @@ export type QueryResolvers<
   ParentType extends
     ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
 > = {
+  getTaskById?: Resolver<
+    Maybe<ResolversTypes['Task']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetTaskByIdArgs, '_id'>
+  >;
+  getTasks?: Resolver<
+    ResolversTypes['GetTasksResponse'],
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetTasksArgs, 'limit' | 'offset' | 'sortBy'>
+  >;
   health?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
 };
 
@@ -397,6 +534,25 @@ export interface RegExpScalarConfig
   extends GraphQLScalarTypeConfig<ResolversTypes['RegExp'], any> {
   name: 'RegExp';
 }
+
+export type TaskResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['Task'] = ResolversParentTypes['Task'],
+> = {
+  _id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  completedAt?: Resolver<
+    Maybe<ResolversTypes['BigInt']>,
+    ParentType,
+    ContextType
+  >;
+  createdAt?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  isCompleted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  orgId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
 
 export type TokensResponseResolvers<
   ContextType = any,
@@ -423,9 +579,11 @@ export type VerifyEmailResponseResolvers<
 
 export type Resolvers<ContextType = any> = {
   BigInt?: GraphQLScalarType;
+  GetTasksResponse?: GetTasksResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   RegExp?: GraphQLScalarType;
+  Task?: TaskResolvers<ContextType>;
   TokensResponse?: TokensResponseResolvers<ContextType>;
   VerifyEmailResponse?: VerifyEmailResponseResolvers<ContextType>;
 };
