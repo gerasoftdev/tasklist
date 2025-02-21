@@ -8,11 +8,11 @@ import {
 } from '@repo/ui';
 import type { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { Task } from '@repo/types';
+import type { MockTaskType } from '@repo/types';
 import { useMockTaskApi } from '@/hooks/mockTaskApi';
 
 type Props = {
-  task: Task;
+  task: MockTaskType;
   onSubmit: () => void;
   onCancel: () => void;
 };
@@ -38,7 +38,7 @@ export const DeleteTaskModal: FC<Props> = ({ task, onSubmit, onCancel }) => {
       <BodySmall $bold>
         {t('task:deleteTaskDescription', { taskName: task.name })}
       </BodySmall>
-      <Row className="gap-md justify-end">
+      <Row className="justify-end gap-md">
         <SecondaryButton
           label={t('common:cancel')}
           onClick={handleCancelDelete}

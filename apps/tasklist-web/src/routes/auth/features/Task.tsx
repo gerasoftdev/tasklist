@@ -2,14 +2,14 @@ import type { ChangeEvent, FC } from 'react';
 import { BodyLarge, ButtonBase, Checkbox, Col, size } from '@repo/ui';
 import { clsx } from 'clsx';
 import { useTranslation } from 'react-i18next';
-import type { Task as TaskType } from '@repo/types';
 import { IoEllipsisHorizontal } from 'react-icons/io5';
+import type { MockTaskType } from '@repo/types';
 import { RouterLink } from '@/components/RouterLink';
 import { useMockTaskApi } from '@/hooks/mockTaskApi';
 import { ROUTES } from '@/constants/routes';
 
 type Props = {
-  task: TaskType;
+  task: MockTaskType;
 };
 
 export const Task: FC<Props> = ({ task: { _id, name, isCompleted } }) => {
@@ -21,7 +21,7 @@ export const Task: FC<Props> = ({ task: { _id, name, isCompleted } }) => {
   };
 
   return (
-    <Col className="border-g300 border-b">
+    <Col className="border-b border-g300">
       <ButtonBase
         $size={null}
         className={clsx('items-center', 'rounded-sm')}

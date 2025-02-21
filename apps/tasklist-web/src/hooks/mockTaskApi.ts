@@ -1,13 +1,13 @@
 import { create } from 'zustand';
-import type { Task } from '@repo/types';
+import type { MockTaskType } from '@repo/types';
 import { v4 as uuid } from 'uuid';
 
 type TaskStore = {
-  tasks: Task[];
-  getTaskById: (_id: string) => Task | null;
-  getTasks: () => Task[];
+  tasks: MockTaskType[];
+  getTaskById: (_id: string) => MockTaskType | null;
+  getTasks: () => MockTaskType[];
   createTask: (name: string) => void;
-  updateTask: (_id: string, updatedData: Partial<Task>) => void;
+  updateTask: (_id: string, updatedData: Partial<MockTaskType>) => void;
   deleteTask: (_id: string) => void;
 };
 
@@ -24,7 +24,7 @@ export const useMockTaskApi = create<TaskStore>((set, get) => ({
 
   createTask: (name) => {
     set((state) => {
-      const newTask: Task = { _id: uuid(), name, isCompleted: false };
+      const newTask: MockTaskType = { _id: uuid(), name, isCompleted: false };
       return { tasks: [...state.tasks, newTask] };
     });
   },
