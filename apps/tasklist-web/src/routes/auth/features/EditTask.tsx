@@ -15,7 +15,7 @@ import {
 import { Redirect, useLocation, useParams } from 'wouter';
 import { useTranslation } from 'react-i18next';
 import { taskSchemaFields } from '@repo/validation-schema';
-import type { Task } from '@repo/types';
+import type { MockTaskType } from '@repo/types';
 import { useMockTaskApi } from '@/hooks/mockTaskApi';
 import { ROUTES } from '@/constants/routes';
 import { DeleteTaskModal } from '@/routes/auth/features/DeleteTaskModal';
@@ -29,7 +29,7 @@ type FormData = TypeOf<typeof formSchema>;
 type EditTaskContentProps = {
   onSubmit: () => void;
   onCancel: () => void;
-  task: Task;
+  task: MockTaskType;
 };
 
 export const EditTaskModal: FC<EditTaskContentProps> = ({
@@ -74,7 +74,7 @@ export const EditTaskModal: FC<EditTaskContentProps> = ({
   return (
     <Modal className="w-xxl" onClose={onCancel} title={t('task:editTask')}>
       <form
-        className="min-h-n min-w-n gap-sm flex-1 flex-col"
+        className="min-h-n min-w-n flex-1 flex-col gap-sm"
         onSubmit={handleSubmitWrapper(handleSubmit)}
       >
         <Input
@@ -86,7 +86,7 @@ export const EditTaskModal: FC<EditTaskContentProps> = ({
           label={t('common:name')}
           placeholder={t('task:taskName')}
         />
-        <Row className="gap-md mt-auto">
+        <Row className="mt-auto gap-md">
           <GhostButton className="mr-auto" onClick={handleDelete} type="button">
             <BodyRegular $bold className="text-red">
               {t('common:delete')}

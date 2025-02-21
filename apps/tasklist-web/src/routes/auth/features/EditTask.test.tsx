@@ -3,7 +3,7 @@ import { Route } from 'wouter';
 import { memoryLocation } from 'wouter/memory-location';
 import common from '@repo/translation/en/common.json';
 import { useMemo, type FC } from 'react';
-import type { Task } from '@repo/types';
+import type { MockTaskType } from '@repo/types';
 import {
   fireEvent,
   render,
@@ -15,7 +15,9 @@ import { ROUTES } from '@/constants/routes';
 import { useMockTaskApi } from '@/hooks/mockTaskApi';
 import { EditTask } from '@/routes/auth/features/EditTask';
 
-const EditTaskWithPopulatedTasks: FC<{ task: Task | null }> = ({ task }) => {
+const EditTaskWithPopulatedTasks: FC<{ task: MockTaskType | null }> = ({
+  task,
+}) => {
   const { getTaskById } = useMockTaskApi();
   const taskFromApi = getTaskById(mockTask._id);
   const tasks = useMemo(() => (task ? [task] : []), [task]);
@@ -36,7 +38,7 @@ const mockTasksLocation = ROUTES.TASKS();
 
 const setup = (
   location?: ReturnType<typeof memoryLocation>,
-  task: Task | null = mockTask,
+  task: MockTaskType | null = mockTask,
 ) =>
   render(<EditTaskWithPopulatedTasks task={task} />, {
     location,

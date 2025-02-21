@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { type ComponentProps } from 'react';
-import type { Task } from '@repo/types';
+import type { MockTaskType } from '@repo/types';
 import { TasksMain } from '@/routes/auth/features/TasksMain';
 import { usePopulateTasks } from '@/utils/testUtils';
 import { mockTask, mockTask2 } from '@/__fixtures__/task';
 
 type Args = ComponentProps<typeof TasksMain> & {
-  tasks: Task[];
+  tasks: MockTaskType[];
 };
 
 const meta: Meta<Args> = {
