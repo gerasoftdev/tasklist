@@ -1,4 +1,4 @@
-import { dToMs, mToMs, sToMs } from '@repo/utils';
+import { dToMs, mToMs } from '@repo/utils';
 import { literal, number, object, preprocess, string, union } from 'zod';
 import type { infer as zodInfer } from 'zod';
 
@@ -10,7 +10,7 @@ export const defaultConfigValues = {
   MAX_HEAP_USED_BYTES: 100000000,
   MAX_RSS_BYTES: 300000000,
   CORS_ALLOWLIST: [],
-  ACCESS_TOKEN_EXPIRY: sToMs * 2,
+  ACCESS_TOKEN_EXPIRY: mToMs * 15,
   VERIFICATION_TOKEN_EXPIRY: dToMs,
   REFRESH_TOKEN_EXPIRY: dToMs * 7,
   PASSWORD_TOKEN_EXPIRY: mToMs * 15,
