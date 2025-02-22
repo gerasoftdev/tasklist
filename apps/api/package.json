@@ -32,6 +32,7 @@
     "@repo/auth-service": "workspace:*",
     "@repo/graphql": "workspace:*",
     "@repo/mongodb-helpers": "workspace:*",
+    "@repo/task-service": "workspace:*",
     "@repo/translation": "workspace:*",
     "@repo/utils": "workspace:*",
     "close-with-grace": "catalog:",

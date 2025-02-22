@@ -344,6 +344,9 @@ importers:
       '@repo/mongodb-helpers':
         specifier: workspace:*
         version: link:../../packages/mongodb-helpers
+      '@repo/task-service':
+        specifier: workspace:*
+        version: link:../../packages/task-service
       '@repo/translation':
         specifier: workspace:*
         version: link:../../packages/translation
