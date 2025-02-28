@@ -11,6 +11,7 @@
     "./.storybook/**/*",
     "vite.config.mjs",
     "tailwind.config.ts",
-    "postcss.config.mjs"
+    "postcss.config.mjs",
+    "codegen.ts"
   ]
 }

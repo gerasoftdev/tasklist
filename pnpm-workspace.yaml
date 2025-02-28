@@ -35,6 +35,8 @@ catalog:
 
   "zustand": "^4.5.4"
 
+  "@apollo/client": ^3.11.8
+
   "clsx": "^2.1.1"
   "autoprefixer": "10.4.20"
   "postcss": "8.4.47"
