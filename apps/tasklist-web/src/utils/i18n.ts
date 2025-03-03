@@ -3,6 +3,7 @@ import { makeZodI18nMap } from 'zod-i18n-map';
 import { setErrorMap } from 'zod';
 import { initReactI18next } from 'react-i18next';
 import commonEn from '@repo/translation/en/common.json';
+import errorsEn from '@repo/translation/en/errors.json';
 import taskEn from '@repo/translation/en/task.json';
 import zodEn from 'zod-i18n-map/locales/en/zod.json';
 
@@ -11,6 +12,7 @@ const resources = {
     common: commonEn,
     task: taskEn,
     zod: zodEn,
+    errors: errorsEn,
   },
 };
 
