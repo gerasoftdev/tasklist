@@ -3,6 +3,7 @@ import { Screen } from '@repo/ui';
 import { MainScreen } from '@/routes/auth/MainScreen';
 import { ROUTES } from '@/constants/routes';
 import { EditTask } from '@/routes/auth/features/EditTask';
+import { MessagesPanel } from '@/features/MessagesPanel';
 
 export const AuthenticatedRoutes = () => {
   return (
@@ -17,6 +18,7 @@ export const AuthenticatedRoutes = () => {
           path={ROUTES.TASKS({ taskId: ':taskId' })}
         />
       </Switch>
+      <MessagesPanel />
     </Screen>
   );
 };

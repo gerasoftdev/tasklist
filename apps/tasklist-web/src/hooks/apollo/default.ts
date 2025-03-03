@@ -2,13 +2,20 @@ import * as apolloClientExports from '@apollo/client';
 import type { MutationHookOptions } from '@apollo/client';
 import type { GraphQLFormattedError } from 'graphql';
 import { logout } from '@/utils/logout';
+import { useMessageStore, type MessageInput } from '@/hooks/useMessageStore';
 
 export * from '@apollo/client';
 
-const logoutIfExpired = (error: GraphQLFormattedError) => {
-  if (error.extensions?.doLogout) {
+const handleErrors = (errors: readonly GraphQLFormattedError[]) => {
+  if (errors.some((error) => error.extensions?.doLogout)) {
     logout();
   }
+  const messages: MessageInput[] = errors.map((error) => ({
+    type: 'error',
+    text: error.message,
+    ...error.extensions,
+  }));
+  useMessageStore.getState().addMessages(messages);
 };
 
 export const useQuery = <
@@ -23,9 +30,9 @@ export const useQuery = <
 ) => {
   const result = apolloClientExports.useQuery(query, options);
 
-  const error = result.error?.graphQLErrors[0];
+  const errors = result.error?.graphQLErrors;
 
-  if (error) logoutIfExpired(error);
+  if (errors?.length) handleErrors(errors);
 
   return result;
 };
@@ -42,9 +49,9 @@ export const useLazyQuery = <
 ) => {
   const result = apolloClientExports.useLazyQuery(query, options);
 
-  const error = result[1].error?.graphQLErrors[0];
+  const errors = result[1].error?.graphQLErrors;
 
-  if (error) logoutIfExpired(error);
+  if (errors) handleErrors(errors);
 
   return result;
 };
@@ -61,9 +68,9 @@ export const useMutation = <
 ) => {
   const result = apolloClientExports.useMutation(query, options);
 
-  const error = result[1].error?.graphQLErrors[0];
+  const errors = result[1].error?.graphQLErrors;
 
-  if (error) logoutIfExpired(error);
+  if (errors) handleErrors(errors);
 
   return result;
 };

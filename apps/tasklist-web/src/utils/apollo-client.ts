@@ -1,8 +1,27 @@
 /* v8 ignore start */
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloLink,
+  createHttpLink,
+  InMemoryCache,
+} from '@apollo/client';
+import { onError } from '@apollo/client/link/error';
 import { setContext } from '@apollo/client/link/context';
+import type { GeneralError } from '@repo/utils';
 import { sToMs } from '@repo/utils';
+import { t } from 'i18next';
 import { useAuthStore } from '@/hooks/useAuthStore';
+import { useMessageStore } from '@/hooks/useMessageStore';
+
+const handleNetworkError = (e: Error | GeneralError) => {
+  useMessageStore.getState().addMessages([
+    {
+      type: 'error',
+      ...('extensions' in e ? e.extensions : {}),
+      text: e.message || t('errors:somethingWentWrong'),
+    },
+  ]);
+};
 
 const httpLink = createHttpLink({
   uri: `${import.meta.env.VITE_API_URL}/graphql`,
@@ -34,7 +53,8 @@ const authLink = setContext(
                 .setTokens({ accessToken: newAccessToken });
             }
           })
-          .catch(() => {
+          .catch((e: GeneralError | Error) => {
+            handleNetworkError(e);
             useAuthStore.getState().reset();
           })
           .finally(() => {
@@ -54,8 +74,14 @@ const authLink = setContext(
   },
 );
 
+const errorLink = onError(({ networkError }) => {
+  if (networkError) {
+    handleNetworkError(networkError);
+  }
+});
+
 const apolloClient = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: ApolloLink.from([errorLink, authLink, httpLink]),
   credentials: 'include',
   cache: new InMemoryCache({}),
 });
