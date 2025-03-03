@@ -11,6 +11,8 @@ import { render } from '@testing-library/react';
 import { Router } from 'wouter';
 import { memoryLocation } from 'wouter/memory-location';
 import type { MockTaskType } from '@repo/types';
+import type { MessageInput } from '@/hooks/useMessageStore';
+import { useMessageStore } from '@/hooks/useMessageStore';
 import { useMockTaskApi } from '@/hooks/mockTaskApi';
 
 export const MOCK_LOADING_TIME = 30;
@@ -56,4 +58,17 @@ export const usePopulateTasks = (tasks: MockTaskType[]) => {
       useMockTaskApi.setState(originalState, true);
     };
   }, [tasks]);
+};
+
+export const usePopulateMessages = (messages: MessageInput[]) => {
+  useEffect(() => {
+    const originalState = useMessageStore.getState();
+    useMessageStore.setState({ ...originalState }, true);
+    const newState = useMessageStore.getState();
+    newState.addMessages(messages);
+
+    return () => {
+      useMessageStore.setState(originalState, true);
+    };
+  }, [messages]);
 };

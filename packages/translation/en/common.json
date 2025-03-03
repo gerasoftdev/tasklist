@@ -5,5 +5,10 @@
   "save": "Save",
   "name": "Name",
   "delete": "Delete",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "error": "Error",
+  "info": "Info",
+  "warning": "Warning",
+  "success": "Success",
+  "clear": "Clear"
 }
