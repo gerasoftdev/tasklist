@@ -15,6 +15,7 @@ const config = {
     getAbsolutePath('@storybook/addon-essentials'),
     getAbsolutePath('@chromatic-com/storybook'),
     getAbsolutePath('@storybook/addon-interactions'),
+    getAbsolutePath('storybook-addon-apollo-client'),
   ],
   framework: {
     name: getAbsolutePath('@storybook/react-vite'),

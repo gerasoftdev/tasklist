@@ -63,3 +63,19 @@ export const BodySmall: FC<Omit<TextProps, '$variant'>> = (props) => (
 export const Note: FC<Omit<TextProps, '$variant'>> = (props) => (
   <Text {...props} $variant="note" />
 );
+
+const linkTextStyles = clsx(
+  'transition-opacity',
+  'cursor-pointer',
+  'underline',
+  'hover:opacity-80',
+);
+
+export const LinkText: FC<PropsWithChildren<TextProps>> = ({
+  className = '',
+  ...props
+}) => {
+  const combinedClassName = clsx(linkTextStyles, className);
+
+  return <Text className={combinedClassName} {...props} />;
+};

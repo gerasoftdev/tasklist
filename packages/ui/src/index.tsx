@@ -7,5 +7,7 @@ export * from './components/Input';
 export * from './components/Checkbox';
 export * from './components/Modal';
 export * from './components/Toast';
+export * from './components/Spinner';
+export * from './components/OverlaySpinner';
 export * from './presets';
 export * from './theme';

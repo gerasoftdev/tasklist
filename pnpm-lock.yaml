@@ -219,6 +219,9 @@ catalogs:
     storybook:
       specifier: ^8.4.7
       version: 8.4.7
+    storybook-addon-apollo-client:
+      specifier: ^8.1.2
+      version: 8.1.2
     tailwindcss:
       specifier: 3.4.13
       version: 3.4.13
@@ -586,6 +589,9 @@ importers:
       storybook:
         specifier: 'catalog:'
         version: 8.4.7(prettier@3.4.2)
+      storybook-addon-apollo-client:
+        specifier: 'catalog:'
+        version: 8.1.2(@apollo/client@3.13.1(@types/react@18.3.18)(graphql-ws@5.16.2(graphql@16.10.0))(graphql@16.10.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(graphql@16.10.0)(react@18.3.1)(storybook@8.4.7(prettier@3.4.2))
       tailwindcss:
         specifier: 'catalog:'
         version: 3.4.13
@@ -6400,6 +6406,14 @@ packages:
 
   std-env@3.8.0:
     resolution: {integrity: sha512-Bc3YwwCB+OzldMxOXJIIvC6cPRWr/LxOp48CdQTOkPyk/t4JWWJbrilwBd7RJzKV8QW7tJkcgAmeuLLJugl5/w==}
+
+  storybook-addon-apollo-client@8.1.2:
+    resolution: {integrity: sha512-KZFyzep6Tzqfdlf/+06H0tFv2GIbj5LbB8CxBhEn1icwIo9N/frnsuwG+X6MKE3ELeJ/Km60t5EIIy2Zpydh6g==}
+    peerDependencies:
+      '@apollo/client': ^3.0.0
+      graphql: ^16.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      storybook: ^8.3.0
 
   storybook@8.4.7:
     resolution: {integrity: sha512-RP/nMJxiWyFc8EVMH5gp20ID032Wvk+Yr3lmKidoegto5Iy+2dVQnUoElZb2zpbVXNHWakGuAkfI0dY1Hfp/vw==}
@@ -13630,6 +13644,13 @@ snapshots:
   statuses@2.0.1: {}
 
   std-env@3.8.0: {}
+
+  storybook-addon-apollo-client@8.1.2(@apollo/client@3.13.1(@types/react@18.3.18)(graphql-ws@5.16.2(graphql@16.10.0))(graphql@16.10.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(graphql@16.10.0)(react@18.3.1)(storybook@8.4.7(prettier@3.4.2)):
+    dependencies:
+      '@apollo/client': 3.13.1(@types/react@18.3.18)(graphql-ws@5.16.2(graphql@16.10.0))(graphql@16.10.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      graphql: 16.10.0
+      react: 18.3.1
+      storybook: 8.4.7(prettier@3.4.2)
 
   storybook@8.4.7(prettier@3.4.2):
     dependencies:
