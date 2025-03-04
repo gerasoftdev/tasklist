@@ -1,14 +1,10 @@
-import { useEffect } from 'react';
-import { useHealthQuery } from '@/hooks/apollo/api';
 import { AuthenticatedRoutes } from '@/routes/auth';
+import { useAuthStore } from '@/hooks/useAuthStore';
+import { UnauthenticatedRoutes } from '@/routes/unauth';
 
 export const Routes = () => {
-  const { data } = useHealthQuery();
+  const { auth } = useAuthStore();
 
-  useEffect(() => {
-    // eslint-disable-next-line no-console -- temporary logging to test API
-    console.log(`Is API healthy?`, data?.health);
-  }, [data]);
-
-  return <AuthenticatedRoutes />;
+  if (auth) return <AuthenticatedRoutes />;
+  return <UnauthenticatedRoutes />;
 };
