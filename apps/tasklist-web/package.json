@@ -68,6 +68,7 @@
     "postcss": "catalog:",
     "postcss-import": "catalog:",
     "storybook": "catalog:",
+    "storybook-addon-apollo-client": "catalog:",
     "tailwindcss": "catalog:",
     "vite": "catalog:",
     "vite-tsconfig-paths": "catalog:",
