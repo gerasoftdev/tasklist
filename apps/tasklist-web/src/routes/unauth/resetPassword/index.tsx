@@ -7,47 +7,48 @@ import {
   Input,
   PrimaryButton,
 } from '@repo/ui';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import type { TypeOf } from 'zod';
 import { object, string } from 'zod';
-import { useSignUpMutation } from '@/hooks/apollo/api';
-import { AuthLink } from '@/routes/unauth/components/AuthLink';
+import { useState } from 'react';
+import { useResetPasswordMutation } from '@/hooks/apollo/api';
 import { ROUTES } from '@/constants/routes';
+import { AuthLink } from '@/routes/unauth/components/AuthLink';
 
-const signUpFormSchema = object({
+const resetPasswordFormSchema = object({
   email: string().email(),
 });
-type FormData = TypeOf<typeof signUpFormSchema>;
+type FormData = TypeOf<typeof resetPasswordFormSchema>;
 
-export const SignUp = () => {
+export const ResetPassword = () => {
   const { t } = useTranslation(['auth', 'common']);
   const [isConfirmed, setIsConfirmed] = useState(false);
 
-  const [signUpMutation, { loading: creating, error }] = useSignUpMutation({
-    preventToastErrors: true,
-  });
-  const isLoading = creating;
+  const [resetPasswordMutation, { loading: signing, error }] =
+    useResetPasswordMutation({
+      preventToastErrors: true,
+    });
+  const isLoading = signing;
 
   const {
     register,
     handleSubmit,
     formState: { isDirty, isValid, errors },
   } = useForm<FormData>({
-    resolver: zodResolver(signUpFormSchema),
+    resolver: zodResolver(resetPasswordFormSchema),
     mode: 'onChange',
   });
   const disabled = isLoading || !isDirty || !isValid;
 
   const onSubmit = (data: FormData) => {
-    if (disabled) return;
+    if (isLoading) return;
 
-    signUpMutation({
+    resetPasswordMutation({
       variables: { data },
     })
       .then((result) => {
-        if (result.data?.signUp) {
+        if (result.data) {
           setIsConfirmed(true);
         }
       })
@@ -58,12 +59,12 @@ export const SignUp = () => {
     <Col className="flex-1 gap-lg">
       {isConfirmed ? (
         <>
-          <H1>{t('auth:signUp')}</H1>
-          <BodyRegular>{t('auth:signUpConfirmation')}</BodyRegular>
+          <H1>{t('auth:resetPassword')}</H1>
+          <BodyRegular>{t('auth:resetPasswordConfirmation')}</BodyRegular>
         </>
       ) : (
         <>
-          <H1>{t('auth:signUp')}</H1>
+          <H1>{t('auth:resetPassword')}</H1>
           <form
             className="flex-col items-stretch gap-md self-stretch"
             onSubmit={handleSubmit(onSubmit)}
@@ -94,7 +95,12 @@ export const SignUp = () => {
             <AuthLink
               linkText={t('auth:signInHere')}
               route={ROUTES.SIGN_IN}
-              text={t('auth:haveAccountAlready')}
+              text={t('auth:rememberPassword')}
+            />
+            <AuthLink
+              linkText={t('auth:createAccount')}
+              route={ROUTES.SIGN_UP}
+              text={t('auth:dontHaveAccount')}
             />
           </Col>
         </>

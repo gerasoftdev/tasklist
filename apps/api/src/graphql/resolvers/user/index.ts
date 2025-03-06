@@ -49,7 +49,11 @@ const setPasswordResolver: MutationResolvers<Context>['setPassword'] = async (
 
 const resetPasswordResolver: MutationResolvers<Context>['resetPassword'] =
   async (parent, { data: { email } }, context) => {
-    await context.authService.resetPassword({ email });
+    try {
+      await context.authService.resetPassword({ email });
+    } catch (e) {
+      // Return true regardless of error to prevent email enumeration
+    }
 
     return true;
   };
