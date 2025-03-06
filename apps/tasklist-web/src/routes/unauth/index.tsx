@@ -7,6 +7,7 @@ import { SignUp } from '@/routes/unauth/signUp';
 import { MessagesPanel } from '@/features/MessagesPanel';
 import { ResetPassword } from '@/routes/unauth/resetPassword';
 import { SetPassword } from '@/routes/unauth/setPassword';
+import { VerifyEmail } from '@/routes/unauth/verifyEmail';
 
 export const UnauthenticatedRoutes = () => {
   return (
@@ -19,6 +20,12 @@ export const UnauthenticatedRoutes = () => {
           <Route
             component={SetPassword}
             path={ROUTES.SET_PASSWORD({ passwordTokenId: ':passwordTokenId' })}
+          />
+          <Route
+            component={VerifyEmail}
+            path={ROUTES.VERIFY_EMAIL({
+              verificationTokenId: ':verificationTokenId',
+            })}
           />
           <Redirect to={ROUTES.SIGN_IN} />
         </Switch>
