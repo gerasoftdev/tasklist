@@ -1,4 +1,4 @@
-import type { MutationResolvers } from '@/types/graphql';
+import type { MutationResolvers, QueryResolvers } from '@/types/graphql';
 import type { Context } from '@/graphql/context';
 
 const signUpResolver: MutationResolvers<Context>['signUp'] = async (
@@ -13,7 +13,7 @@ const signUpResolver: MutationResolvers<Context>['signUp'] = async (
   return true;
 };
 
-const verifyPasswordTokenResolver: MutationResolvers<Context>['verifyPasswordToken'] =
+const verifyPasswordTokenResolver: QueryResolvers<Context>['verifyPasswordToken'] =
   async (parent, { data: { passwordTokenId } }, context) => {
     const isValid = await context.authService.verifyPasswordToken({
       passwordTokenId,
@@ -104,10 +104,12 @@ const logoutResolver: MutationResolvers<Context>['logout'] = async (
 };
 
 export const userResolvers = {
+  Query: {
+    verifyPasswordToken: verifyPasswordTokenResolver,
+  },
   Mutation: {
     signUp: signUpResolver,
     verifyEmail: verifyEmailResolver,
-    verifyPasswordToken: verifyPasswordTokenResolver,
     setPassword: setPasswordResolver,
     resetPassword: resetPasswordResolver,
     signIn: signInResolver,

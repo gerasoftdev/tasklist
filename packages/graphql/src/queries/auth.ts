@@ -16,7 +16,7 @@ export const VerifyEmail = gql`
   }
 `;
 export const VerifyPasswordToken = gql`
-  mutation verifyPasswordToken($data: VerifyPasswordTokenInput!) {
+  query verifyPasswordToken($data: VerifyPasswordTokenInput!) {
     verifyPasswordToken(data: $data)
   }
 `;

@@ -10,20 +10,26 @@ export const overlayStyles = clsx(
   'left-n',
   'w-screen',
   'h-screen',
-  'bg-oD50',
 );
 
-export const Overlay = forwardRef<
-  HTMLDivElement,
-  PropsWithChildren<ComponentProps<typeof Col>>
->(({ children, className, ...props }, ref) => {
-  const combinedClassName = clsx(overlayStyles, className);
+export type OverlayProps = PropsWithChildren<ComponentProps<typeof Col>> & {
+  transparent?: boolean;
+};
 
-  return (
-    <Col className={combinedClassName} ref={ref} {...props}>
-      {children}
-    </Col>
-  );
-});
+export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
+  ({ children, className, transparent = false, ...props }, ref) => {
+    const combinedClassName = clsx(
+      overlayStyles,
+      className,
+      !transparent && 'bg-oD50',
+    );
+
+    return (
+      <Col className={combinedClassName} ref={ref} {...props}>
+        {children}
+      </Col>
+    );
+  },
+);
 
 Overlay.displayName = 'Overlay';

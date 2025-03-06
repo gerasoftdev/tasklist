@@ -6,6 +6,7 @@ import { Main } from '@/components/Main';
 import { SignUp } from '@/routes/unauth/signUp';
 import { MessagesPanel } from '@/features/MessagesPanel';
 import { ResetPassword } from '@/routes/unauth/resetPassword';
+import { SetPassword } from '@/routes/unauth/setPassword';
 
 export const UnauthenticatedRoutes = () => {
   return (
@@ -15,6 +16,10 @@ export const UnauthenticatedRoutes = () => {
           <Route component={SignIn} path={ROUTES.SIGN_IN} />
           <Route component={SignUp} path={ROUTES.SIGN_UP} />
           <Route component={ResetPassword} path={ROUTES.RESET_PASSWORD} />
+          <Route
+            component={SetPassword}
+            path={ROUTES.SET_PASSWORD({ passwordTokenId: ':passwordTokenId' })}
+          />
           <Redirect to={ROUTES.SIGN_IN} />
         </Switch>
         <MessagesPanel />
