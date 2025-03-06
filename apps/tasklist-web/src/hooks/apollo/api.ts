@@ -104,52 +104,84 @@ export type VerifyEmailMutationOptions = Apollo.BaseMutationOptions<
   Types.VerifyEmailMutationVariables
 >;
 export const VerifyPasswordTokenDocument = gql`
-  mutation verifyPasswordToken($data: VerifyPasswordTokenInput!) {
+  query verifyPasswordToken($data: VerifyPasswordTokenInput!) {
     verifyPasswordToken(data: $data)
   }
 `;
-export type VerifyPasswordTokenMutationFn = Apollo.MutationFunction<
-  Types.VerifyPasswordTokenMutation,
-  Types.VerifyPasswordTokenMutationVariables
->;
 
 /**
- * __useVerifyPasswordTokenMutation__
+ * __useVerifyPasswordTokenQuery__
  *
- * To run a mutation, you first call `useVerifyPasswordTokenMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useVerifyPasswordTokenMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
+ * To run a query within a React component, call `useVerifyPasswordTokenQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVerifyPasswordTokenQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
  *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const [verifyPasswordTokenMutation, { data, loading, error }] = useVerifyPasswordTokenMutation({
+ * const { data, loading, error } = useVerifyPasswordTokenQuery({
  *   variables: {
  *      data: // value for 'data'
  *   },
  * });
  */
-export function useVerifyPasswordTokenMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    Types.VerifyPasswordTokenMutation,
-    Types.VerifyPasswordTokenMutationVariables
+export function useVerifyPasswordTokenQuery(
+  baseOptions: ApolloReactHooks.QueryHookOptions<
+    Types.VerifyPasswordTokenQuery,
+    Types.VerifyPasswordTokenQueryVariables
+  > &
+    (
+      | { variables: Types.VerifyPasswordTokenQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return ApolloReactHooks.useQuery<
+    Types.VerifyPasswordTokenQuery,
+    Types.VerifyPasswordTokenQueryVariables
+  >(VerifyPasswordTokenDocument, options);
+}
+export function useVerifyPasswordTokenLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    Types.VerifyPasswordTokenQuery,
+    Types.VerifyPasswordTokenQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useMutation<
-    Types.VerifyPasswordTokenMutation,
-    Types.VerifyPasswordTokenMutationVariables
+  return ApolloReactHooks.useLazyQuery<
+    Types.VerifyPasswordTokenQuery,
+    Types.VerifyPasswordTokenQueryVariables
   >(VerifyPasswordTokenDocument, options);
 }
-export type VerifyPasswordTokenMutationHookResult = ReturnType<
-  typeof useVerifyPasswordTokenMutation
+export function useVerifyPasswordTokenSuspenseQuery(
+  baseOptions?:
+    | ApolloReactHooks.SkipToken
+    | ApolloReactHooks.SuspenseQueryHookOptions<
+        Types.VerifyPasswordTokenQuery,
+        Types.VerifyPasswordTokenQueryVariables
+      >,
+) {
+  const options =
+    baseOptions === ApolloReactHooks.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return ApolloReactHooks.useSuspenseQuery<
+    Types.VerifyPasswordTokenQuery,
+    Types.VerifyPasswordTokenQueryVariables
+  >(VerifyPasswordTokenDocument, options);
+}
+export type VerifyPasswordTokenQueryHookResult = ReturnType<
+  typeof useVerifyPasswordTokenQuery
 >;
-export type VerifyPasswordTokenMutationResult =
-  Apollo.MutationResult<Types.VerifyPasswordTokenMutation>;
-export type VerifyPasswordTokenMutationOptions = Apollo.BaseMutationOptions<
-  Types.VerifyPasswordTokenMutation,
-  Types.VerifyPasswordTokenMutationVariables
+export type VerifyPasswordTokenLazyQueryHookResult = ReturnType<
+  typeof useVerifyPasswordTokenLazyQuery
+>;
+export type VerifyPasswordTokenSuspenseQueryHookResult = ReturnType<
+  typeof useVerifyPasswordTokenSuspenseQuery
+>;
+export type VerifyPasswordTokenQueryResult = Apollo.QueryResult<
+  Types.VerifyPasswordTokenQuery,
+  Types.VerifyPasswordTokenQueryVariables
 >;
 export const SetPasswordDocument = gql`
   mutation setPassword($data: SetPasswordInput!) {

@@ -85,7 +85,6 @@ export type Mutation = {
   signUp: Scalars['Boolean']['output'];
   updateTask: Maybe<Task>;
   verifyEmail: VerifyEmailResponse;
-  verifyPasswordToken: Scalars['Boolean']['output'];
 };
 
 export type MutationCreateTaskArgs = {
@@ -128,10 +127,6 @@ export type MutationVerifyEmailArgs = {
   data: VerifyEmailInput;
 };
 
-export type MutationVerifyPasswordTokenArgs = {
-  data: VerifyPasswordTokenInput;
-};
-
 export type NumberFilters = {
   eq?: InputMaybe<Scalars['BigInt']['input']>;
   gt?: InputMaybe<Scalars['BigInt']['input']>;
@@ -149,6 +144,7 @@ export type Query = {
   getTaskById: Maybe<Task>;
   getTasks: GetTasksResponse;
   health: Scalars['Boolean']['output'];
+  verifyPasswordToken: Scalars['Boolean']['output'];
 };
 
 export type QueryGetTaskByIdArgs = {
@@ -160,6 +156,10 @@ export type QueryGetTasksArgs = {
   limit?: InputMaybe<Scalars['BigInt']['input']>;
   offset?: InputMaybe<Scalars['BigInt']['input']>;
   sortBy?: InputMaybe<Array<TaskSortBy>>;
+};
+
+export type QueryVerifyPasswordTokenArgs = {
+  data: VerifyPasswordTokenInput;
 };
 
 export type RefreshTokensInput = {
@@ -502,12 +502,6 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationVerifyEmailArgs, 'data'>
   >;
-  verifyPasswordToken?: Resolver<
-    ResolversTypes['Boolean'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationVerifyPasswordTokenArgs, 'data'>
-  >;
 };
 
 export type QueryResolvers<
@@ -528,6 +522,12 @@ export type QueryResolvers<
     RequireFields<QueryGetTasksArgs, 'limit' | 'offset' | 'sortBy'>
   >;
   health?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  verifyPasswordToken?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<QueryVerifyPasswordTokenArgs, 'data'>
+  >;
 };
 
 export interface RegExpScalarConfig
