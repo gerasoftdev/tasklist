@@ -39,16 +39,17 @@ export const Task: FC<Props> = ({ task: { _id, name, isCompleted } }) => {
         <RouterLink
           className={clsx(
             'flex-1',
+            'items-center',
             isCompleted ? 'text-g500' : 'text-g900',
             isCompleted && 'line-through',
           )}
           to={ROUTES.TASKS({ taskId: _id })}
         >
           <BodyLarge>{name}</BodyLarge>
+          <Col className="ml-auto p-sm">
+            <IoEllipsisHorizontal size={size.xs} />
+          </Col>
         </RouterLink>
-        <Col className="p-sm">
-          <IoEllipsisHorizontal size={size.xs} />
-        </Col>
       </ButtonBase>
     </Col>
   );
