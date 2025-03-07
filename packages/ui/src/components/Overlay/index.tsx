@@ -4,7 +4,6 @@ import type { ComponentProps, PropsWithChildren } from 'react';
 import { Col } from '../Col';
 
 export const overlayStyles = clsx(
-  'p-lg',
   'fixed',
   'top-n',
   'left-n',

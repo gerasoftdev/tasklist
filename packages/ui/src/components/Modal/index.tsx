@@ -47,6 +47,7 @@ export const Modal: FC<PropsWithChildren<Props>> = ({
   const modalClassName = clsx(className, modalContainerStyles);
   return (
     <Overlay
+      className="p-lg"
       onClick={handleOverlayClick}
       ref={overlayRef}
       testID={overlayTestID}
