@@ -1,4 +1,5 @@
-import { useMemo, useState, type FC } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { object } from 'zod';
 import type { TypeOf } from 'zod';
@@ -11,14 +12,15 @@ import {
   BodyRegular,
   Input,
   GhostButton,
+  Spinner,
 } from '@repo/ui';
 import { Redirect, useLocation, useParams } from 'wouter';
 import { useTranslation } from 'react-i18next';
 import { taskSchemaFields } from '@repo/validation-schema';
-import type { MockTaskType } from '@repo/types';
-import { useMockTaskApi } from '@/hooks/mockTaskApi';
+import type { GetTaskQuery } from '@repo/graphql';
 import { ROUTES } from '@/constants/routes';
 import { DeleteTaskModal } from '@/routes/auth/features/DeleteTaskModal';
+import { useGetTaskQuery, useUpdateTaskMutation } from '@/hooks/apollo/api';
 
 const formSchema = object({
   name: taskSchemaFields.name,
@@ -29,7 +31,7 @@ type FormData = TypeOf<typeof formSchema>;
 type EditTaskContentProps = {
   onSubmit: () => void;
   onCancel: () => void;
-  task: MockTaskType;
+  task: Exclude<GetTaskQuery['getTaskById'], null>;
 };
 
 export const EditTaskModal: FC<EditTaskContentProps> = ({
@@ -38,9 +40,11 @@ export const EditTaskModal: FC<EditTaskContentProps> = ({
   task,
 }) => {
   const { t } = useTranslation(['common', 'task']);
-  const { updateTask } = useMockTaskApi();
   const [_, setLocation] = useLocation();
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+
+  const [updateTaskMutation, { loading: updating }] = useUpdateTaskMutation();
+  const isLoading = updating;
 
   const {
     register,
@@ -55,8 +59,16 @@ export const EditTaskModal: FC<EditTaskContentProps> = ({
   });
 
   const handleSubmit = (data: FormData) => {
-    updateTask(task._id, data);
-    onSubmit();
+    updateTaskMutation({
+      variables: {
+        data: {
+          _id: task._id,
+          ...data,
+        },
+      },
+    }).then(() => {
+      onSubmit();
+    });
   };
 
   const handleDelete = () => {
@@ -80,6 +92,7 @@ export const EditTaskModal: FC<EditTaskContentProps> = ({
         <Input
           $size="l"
           $variant="underline"
+          disabled={isLoading}
           error={errors.name?.message}
           id="name"
           {...register('name')}
@@ -98,7 +111,7 @@ export const EditTaskModal: FC<EditTaskContentProps> = ({
             type="reset"
           />
           <PrimaryButton
-            disabled={!isDirty || !isValid}
+            disabled={!isDirty || !isValid || isLoading}
             label={t('common:save')}
             type="submit"
           />
@@ -116,18 +129,27 @@ export const EditTaskModal: FC<EditTaskContentProps> = ({
 };
 
 export const EditTask = () => {
+  const { t } = useTranslation(['task']);
   const [_, setLocation] = useLocation();
   const { taskId } = useParams<{
     taskId: string;
   }>();
 
-  const { getTaskById } = useMockTaskApi();
-
-  const task = useMemo(() => getTaskById(taskId), [taskId, getTaskById]);
+  const { data, loading } = useGetTaskQuery({
+    variables: { _id: taskId },
+  });
+  const task = data?.getTaskById;
 
   const handleClose = () => {
     setLocation(ROUTES.TASKS());
   };
+
+  if (loading)
+    return (
+      <Modal className="w-xxl" onClose={handleClose} title={t('task:editTask')}>
+        <Spinner />
+      </Modal>
+    );
 
   if (!task) return <Redirect to={ROUTES.TASKS()} />;
 

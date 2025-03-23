@@ -1,27 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { type ComponentProps } from 'react';
-import type { MockTaskType } from '@repo/types';
 import { TasksMain } from '@/routes/auth/features/TasksMain';
-import { usePopulateTasks } from '@/utils/testUtils';
-import { mockTask, mockTask2 } from '@/__fixtures__/task';
+import { getTasksQuery } from '@/routes/auth/features/mockQueries';
 
-type Args = ComponentProps<typeof TasksMain> & {
-  tasks: MockTaskType[];
-};
+type Args = ComponentProps<typeof TasksMain>;
 
 const meta: Meta<Args> = {
   title: 'TasksMain',
-  args: {
-    tasks: [mockTask, mockTask2],
-  },
-  decorators: [
-    (Story, { args }) => {
-      usePopulateTasks(args.tasks);
-
-      return <Story />;
-    },
-  ],
   component: TasksMain,
+  parameters: {
+    apolloClient: {
+      mocks: [getTasksQuery()],
+    },
+  },
 };
 
 export default meta;

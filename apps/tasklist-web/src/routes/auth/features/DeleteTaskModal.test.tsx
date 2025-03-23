@@ -1,27 +1,22 @@
 import common from '@repo/translation/en/common.json';
 import { describe, expect, it, vi } from 'vitest';
+import type { MockedResponse } from '@apollo/client/testing';
 import { fireEvent, render, waitFor } from '@/utils/testUtils';
 import { mockTask } from '@/__fixtures__/task';
 import { DeleteTaskModal } from '@/routes/auth/features/DeleteTaskModal';
+import { deleteTaskMutation } from '@/routes/auth/features/mockQueries';
 
 const mockSubmit = vi.fn();
 const mockCancel = vi.fn();
 
-const mockDeleteTask = vi.fn();
-
-vi.mock('@/hooks/mockTaskApi', () => ({
-  useMockTaskApi: () => ({
-    deleteTask: mockDeleteTask,
-  }),
-}));
-
-const setup = () =>
+const setup = (mocks: MockedResponse[] = []) =>
   render(
     <DeleteTaskModal
       onCancel={mockCancel}
       onSubmit={mockSubmit}
       task={mockTask}
     />,
+    { mocks },
   );
 
 describe('Delete task list modal', () => {
@@ -51,12 +46,14 @@ describe('Delete task list modal', () => {
     expect(mockCancel).toHaveBeenCalled();
   });
   it(`Deleting calls submit handler`, async () => {
-    const screen = setup();
+    const screen = setup([deleteTaskMutation()]);
 
     const deleteButton = screen.getByRole('button', { name: common.delete });
     fireEvent.click(deleteButton);
 
-    await waitFor(() => expect(mockDeleteTask).toHaveBeenCalled());
+    await waitFor(() => expect(deleteButton).toBeDisabled());
+
     await waitFor(() => expect(mockSubmit).toHaveBeenCalled());
+    expect(deleteButton).toBeEnabled();
   });
 });

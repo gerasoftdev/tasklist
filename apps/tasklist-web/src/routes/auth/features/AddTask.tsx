@@ -7,7 +7,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { IoAdd, IoCheckmark, IoCloseOutline } from 'react-icons/io5';
 import { object, type TypeOf } from 'zod';
 import { taskSchemaFields } from '@repo/validation-schema';
-import { useMockTaskApi } from '@/hooks/mockTaskApi';
+import { GetTasks } from '@repo/graphql';
+import { useCreateTaskMutation } from '@/hooks/apollo/api';
 
 const formSchema = object({
   name: taskSchemaFields.name,
@@ -18,7 +19,12 @@ type FormData = TypeOf<typeof formSchema>;
 export const AddTask: FC = () => {
   const { t } = useTranslation(['task', 'common']);
   const [showControls, setShowControls] = useState(false);
-  const { createTask } = useMockTaskApi();
+
+  const [createTaskMutation, { loading: creating }] = useCreateTaskMutation({
+    refetchQueries: [GetTasks],
+  });
+
+  const isLoading = creating;
 
   const {
     reset,
@@ -35,8 +41,13 @@ export const AddTask: FC = () => {
   };
 
   const onSubmit = (data: FormData) => {
-    createTask(data.name);
-    reset();
+    if (isLoading) return;
+
+    createTaskMutation({
+      variables: { data },
+    }).then(() => {
+      reset();
+    });
   };
 
   const handleBlur = () => {
@@ -62,7 +73,7 @@ export const AddTask: FC = () => {
               <GhostButton
                 $size="l"
                 aria-label={t('common:submit')}
-                disabled={!isDirty || !isValid}
+                disabled={!isDirty || !isValid || isLoading}
                 onMouseDown={handleSubmitMouseDown}
                 type="submit"
               >

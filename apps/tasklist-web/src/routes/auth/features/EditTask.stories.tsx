@@ -3,14 +3,12 @@ import { type ComponentProps } from 'react';
 import { Route } from 'wouter';
 import { memoryLocation } from 'wouter/memory-location';
 import { EditTask } from '@/routes/auth/features/EditTask';
-import { usePopulateTasks } from '@/utils/testUtils';
 import { mockTask } from '@/__fixtures__/task';
 import { ROUTES } from '@/constants/routes';
-import { useMockTaskApi } from '@/hooks/mockTaskApi';
+import { getTaskQuery } from '@/routes/auth/features/mockQueries';
 
 type Args = ComponentProps<typeof EditTask>;
 
-const tasks = [mockTask];
 const meta: Meta<Args> = {
   title: 'EditTask',
   parameters: {
@@ -22,12 +20,6 @@ const meta: Meta<Args> = {
   },
   decorators: [
     (Story) => {
-      const { getTaskById } = useMockTaskApi();
-      const task = getTaskById(mockTask._id);
-      usePopulateTasks(tasks);
-
-      if (!task) return <>No task yet</>;
-
       return (
         <Route path={ROUTES.TASKS({ taskId: ':taskId' })}>
           <Story />
@@ -41,4 +33,22 @@ const meta: Meta<Args> = {
 export default meta;
 type Story = StoryObj<Args>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  parameters: {
+    apolloClient: {
+      mocks: [getTaskQuery()],
+    },
+  },
+};
+
+export const Loading: Story = {
+  parameters: {
+    apolloClient: {
+      mocks: [
+        getTaskQuery({
+          loadingFor: Infinity,
+        }),
+      ],
+    },
+  },
+};

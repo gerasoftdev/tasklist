@@ -3,21 +3,23 @@ import { BodyLarge, ButtonBase, Checkbox, Col, size } from '@repo/ui';
 import { clsx } from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { IoEllipsisHorizontal } from 'react-icons/io5';
-import type { MockTaskType } from '@repo/types';
+import type { GetTasksQuery } from '@repo/graphql';
 import { RouterLink } from '@/components/RouterLink';
-import { useMockTaskApi } from '@/hooks/mockTaskApi';
 import { ROUTES } from '@/constants/routes';
+import { useUpdateTaskMutation } from '@/hooks/apollo/api';
 
 type Props = {
-  task: MockTaskType;
+  task: GetTasksQuery['getTasks']['data'][number];
 };
 
 export const Task: FC<Props> = ({ task: { _id, name, isCompleted } }) => {
   const { t } = useTranslation(['task']);
-  const { updateTask } = useMockTaskApi();
+  const [updateTaskMutation, { loading: updating }] = useUpdateTaskMutation();
 
   const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
-    updateTask(_id, { isCompleted: e.target.checked });
+    updateTaskMutation({
+      variables: { data: { _id, isCompleted: e.target.checked } },
+    });
   };
 
   return (
@@ -32,6 +34,7 @@ export const Task: FC<Props> = ({ task: { _id, name, isCompleted } }) => {
           aria-label={t('task:completed')}
           checked={isCompleted}
           className="p-sm"
+          disabled={updating}
           id={_id}
           onChange={handleCheckbox}
           type="checkbox"

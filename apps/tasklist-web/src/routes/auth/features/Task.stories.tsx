@@ -14,6 +14,9 @@ const meta: Meta<Args> = {
     },
   },
   component: Task,
+  parameters: {
+    apolloClient: { mocks: [] },
+  },
 };
 
 export default meta;
