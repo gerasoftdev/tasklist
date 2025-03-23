@@ -3,20 +3,14 @@ import {
   submit as submitLabel,
   discard as discardLabel,
 } from '@repo/translation/en/common.json';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
+import type { MockedResponse } from '@apollo/client/testing';
 import { fireEvent, render, waitFor } from '@/utils/testUtils';
 import { mockTaskName } from '@/__fixtures__/task';
 import { AddTask } from '@/routes/auth/features/AddTask';
+import { createTaskMutation } from '@/routes/auth/features/mockQueries';
 
-const setup = () => render(<AddTask />);
-
-const mockCreateTask = vi.fn();
-
-vi.mock('@/hooks/mockTaskApi', () => ({
-  useMockTaskApi: () => ({
-    createTask: mockCreateTask,
-  }),
-}));
+const setup = (mocks: MockedResponse[] = []) => render(<AddTask />, { mocks });
 
 describe('Add task', () => {
   it(`Shows input with "${placeholderText}" placeholder`, () => {
@@ -67,7 +61,7 @@ describe('Add task', () => {
     expect(input).toHaveValue('');
   });
   it('Submitting the task calls mutation endpoint, disables submit button until saved', async () => {
-    const screen = setup();
+    const screen = setup([createTaskMutation()]);
 
     const input = screen.getByPlaceholderText(placeholderText);
 
@@ -83,7 +77,5 @@ describe('Add task', () => {
       expect(submitButton).toBeDisabled();
     });
     await waitFor(() => expect(input).toHaveValue(''));
-
-    expect(mockCreateTask).toHaveBeenCalledWith(mockTaskName);
   });
 });

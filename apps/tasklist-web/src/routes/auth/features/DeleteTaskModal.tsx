@@ -8,25 +8,33 @@ import {
 } from '@repo/ui';
 import type { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { MockTaskType } from '@repo/types';
-import { useMockTaskApi } from '@/hooks/mockTaskApi';
+import type { GetTaskQuery } from '@repo/graphql';
+import { GetTasks } from '@repo/graphql';
+import { useDeleteTaskMutation } from '@/hooks/apollo/api';
 
 type Props = {
-  task: MockTaskType;
+  task: Exclude<GetTaskQuery['getTaskById'], null>;
   onSubmit: () => void;
   onCancel: () => void;
 };
 
 export const DeleteTaskModal: FC<Props> = ({ task, onSubmit, onCancel }) => {
   const { t } = useTranslation(['task', 'common']);
-  const { deleteTask } = useMockTaskApi();
+  const [deleteTaskMutation, { loading: deleting }] = useDeleteTaskMutation({
+    refetchQueries: [GetTasks],
+  });
+
+  const isLoading = deleting;
 
   const handleCancelDelete = () => {
     onCancel();
   };
   const handleConfirmDelete = () => {
-    deleteTask(task._id);
-    onSubmit();
+    deleteTaskMutation({
+      variables: { data: { _id: task._id } },
+    }).then(() => {
+      onSubmit();
+    });
   };
 
   return (
@@ -43,7 +51,7 @@ export const DeleteTaskModal: FC<Props> = ({ task, onSubmit, onCancel }) => {
           label={t('common:cancel')}
           onClick={handleCancelDelete}
         />
-        <GhostButton onClick={handleConfirmDelete}>
+        <GhostButton disabled={isLoading} onClick={handleConfirmDelete}>
           <BodyRegular $bold className="text-red">
             {t('common:delete')}
           </BodyRegular>

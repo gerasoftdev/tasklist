@@ -7,6 +7,11 @@ type Args = ComponentProps<typeof AddTask>;
 const meta: Meta<Args> = {
   title: 'AddTask',
   component: AddTask,
+  parameters: {
+    apolloClient: {
+      mocks: [],
+    },
+  },
 };
 
 export default meta;

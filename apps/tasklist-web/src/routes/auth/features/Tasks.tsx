@@ -1,11 +1,14 @@
-import { Col } from '@repo/ui';
+import { Col, Spinner } from '@repo/ui';
 import type { FC } from 'react';
-import { useMockTaskApi } from '@/hooks/mockTaskApi';
 import { Task } from '@/routes/auth/features/Task';
 import { AddTask } from '@/routes/auth/features/AddTask';
+import { useGetTasksQuery } from '@/hooks/apollo/api';
 
 export const Tasks: FC = () => {
-  const { tasks } = useMockTaskApi();
+  const { data, loading } = useGetTasksQuery();
+  const tasks = data?.getTasks.data || [];
+
+  if (loading && !tasks.length) return <Spinner />;
 
   return (
     <Col className="min-h-n flex-1 overflow-y-auto px-sm *:shrink-0">

@@ -1,70 +1,82 @@
 import { describe, it, expect } from 'vitest';
-import { Route } from 'wouter';
 import { memoryLocation } from 'wouter/memory-location';
 import common from '@repo/translation/en/common.json';
-import { useMemo, type FC } from 'react';
-import type { MockTaskType } from '@repo/types';
-import {
-  fireEvent,
-  render,
-  usePopulateTasks,
-  waitFor,
-} from '@/utils/testUtils';
+import type { MockedResponse } from '@apollo/client/testing';
+import { Route } from 'wouter';
+import { fireEvent, render, waitFor } from '@/utils/testUtils';
 import { mockTask, mockTaskName, updatedTaskName } from '@/__fixtures__/task';
 import { ROUTES } from '@/constants/routes';
-import { useMockTaskApi } from '@/hooks/mockTaskApi';
 import { EditTask } from '@/routes/auth/features/EditTask';
-
-const EditTaskWithPopulatedTasks: FC<{ task: MockTaskType | null }> = ({
-  task,
-}) => {
-  const { getTaskById } = useMockTaskApi();
-  const taskFromApi = getTaskById(mockTask._id);
-  const tasks = useMemo(() => (task ? [task] : []), [task]);
-  usePopulateTasks(tasks);
-
-  if (task && !taskFromApi) return <>No task yet</>;
-
-  return (
-    <Route path={ROUTES.TASKS({ taskId: ':taskId' })}>
-      <EditTask />
-    </Route>
-  );
-};
+import {
+  getTaskQuery,
+  updateTaskNameMutation,
+} from '@/routes/auth/features/mockQueries';
 
 const mockEditTaskPath = ROUTES.TASKS({ taskId: ':taskId' });
 const mockEditTaskLocation = ROUTES.TASKS({ taskId: mockTask._id });
 const mockTasksLocation = ROUTES.TASKS();
 
 const setup = (
+  mocks: MockedResponse[] = [],
   location?: ReturnType<typeof memoryLocation>,
-  task: MockTaskType | null = mockTask,
 ) =>
-  render(<EditTaskWithPopulatedTasks task={task} />, {
-    location,
-    path: mockEditTaskPath,
-  });
+  render(
+    <Route path={mockEditTaskPath}>
+      <EditTask />
+    </Route>,
+    { mocks, location, path: mockEditTaskLocation },
+  );
 
 describe('Edit task', () => {
+  it(`Shows spinner when task is loading`, () => {
+    const screen = setup([
+      getTaskQuery({
+        loadingFor: Infinity,
+      }),
+    ]);
+
+    expect(screen.getByTestId('spinner')).toBeInTheDocument();
+  });
   it(`If no task is found, it redirects to task list view`, async () => {
     const location = memoryLocation({
       path: mockEditTaskLocation,
       record: true,
     });
-    setup(location, null);
+    const screen = setup(
+      [
+        getTaskQuery({
+          withLoading: true,
+          result: {
+            getTaskById: null,
+          },
+        }),
+      ],
+      location,
+    );
 
+    expect(location.history[location.history.length - 1]).toBe(
+      mockEditTaskLocation,
+    );
+    expect(screen.getByTestId('spinner')).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.queryByTestId('spinner')).not.toBeInTheDocument(),
+    );
     await waitFor(() =>
       expect(location.history[location.history.length - 1]).toBe(
         mockTasksLocation,
       ),
     );
   });
-  it(`If task is found, edit the form appears`, () => {
+  it(`If task is found, edit the form appears`, async () => {
     const location = memoryLocation({
       path: mockEditTaskLocation,
       record: true,
     });
-    const screen = setup(location);
+    const screen = setup([getTaskQuery()], location);
+
+    await waitFor(() =>
+      expect(screen.queryByTestId('spinner')).not.toBeInTheDocument(),
+    );
 
     const deleteButton = screen.getByRole('button', { name: common.delete });
     const saveButton = screen.getByRole('button', { name: common.save });
@@ -81,7 +93,11 @@ describe('Edit task', () => {
       path: mockEditTaskLocation,
       record: true,
     });
-    const screen = setup(location);
+    const screen = setup([getTaskQuery()], location);
+
+    await waitFor(() =>
+      expect(screen.queryByTestId('spinner')).not.toBeInTheDocument(),
+    );
 
     const cancelButton = screen.getByRole('button', { name: common.cancel });
     fireEvent.click(cancelButton);
@@ -92,12 +108,16 @@ describe('Edit task', () => {
       ),
     );
   });
-  it(`The default value of the name input is the name of the task`, () => {
+  it(`The default value of the name input is the name of the task`, async () => {
     const location = memoryLocation({
       path: mockEditTaskLocation,
       record: true,
     });
-    const screen = setup(location);
+    const screen = setup([getTaskQuery()], location);
+
+    await waitFor(() =>
+      expect(screen.queryByTestId('spinner')).not.toBeInTheDocument(),
+    );
 
     const nameInput = screen.getByLabelText(common.name);
     expect(nameInput).toHaveValue(mockTaskName);
@@ -107,8 +127,11 @@ describe('Edit task', () => {
       path: mockEditTaskLocation,
       record: true,
     });
-    const screen = setup(location);
+    const screen = setup([getTaskQuery(), updateTaskNameMutation()], location);
 
+    await waitFor(() =>
+      expect(screen.queryByTestId('spinner')).not.toBeInTheDocument(),
+    );
     const saveButton = screen.getByRole('button', { name: common.save });
     expect(saveButton).toBeDisabled();
 
@@ -117,6 +140,11 @@ describe('Edit task', () => {
 
     await waitFor(() => expect(saveButton).toBeEnabled());
     fireEvent.click(saveButton);
+
+    await waitFor(() => {
+      expect(saveButton).toBeDisabled();
+      expect(nameInput).toBeDisabled();
+    });
 
     await waitFor(() =>
       expect(location.history[location.history.length - 1]).toBe(
@@ -129,8 +157,11 @@ describe('Edit task', () => {
       path: mockEditTaskLocation,
       record: true,
     });
-    const screen = setup(location);
+    const screen = setup([getTaskQuery(), updateTaskNameMutation()], location);
 
+    await waitFor(() =>
+      expect(screen.queryByTestId('spinner')).not.toBeInTheDocument(),
+    );
     const deleteButton = screen.getByRole('button', { name: common.delete });
     fireEvent.click(deleteButton);
 
